@@ -65,14 +65,14 @@ jobs:
       - name: Upload Installation Package to Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: OCLP-Rem.pkg
-          path: ./dist/OCLP-Rem.pkg
+          name: OCLP-R.pkg
+          path: ./dist/OCLP-R.pkg
 
       - name: Upload Uninstaller Package to Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: OCLP-Rem-Uninstaller.pkg
-          path: ./dist/OCLP-Rem-Uninstaller.pkg
+          name: OCLP-R-Uninstaller.pkg
+          path: ./dist/OCLP-R-Uninstaller.pkg
 
       - name: Delete previous pre-release
         if: github.event_name == 'push'
@@ -93,8 +93,8 @@ jobs:
           prerelease: true
           files: |
             ./dist/AutoPkg-Assets.pkg
-            ./dist/OCLP-Rem.pkg
-            ./dist/OCLP-Rem-Uninstaller.pkg
+            ./dist/OCLP-R.pkg
+            ./dist/OCLP-R-Uninstaller.pkg
 
       - name: Upload AutoPkg Package to Release
         if: github.event_name == 'release'
@@ -110,7 +110,7 @@ jobs:
         uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/OCLP-Rem.pkg
+          file: ./dist/OCLP-R.pkg
           tag: ${{ github.ref }}
           file_glob: true
 
@@ -119,6 +119,6 @@ jobs:
         uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/OCLP-Rem-Uninstaller.pkg
+          file: ./dist/OCLP-R-Uninstaller.pkg
           tag: ${{ github.ref }}
           file_glob: true
