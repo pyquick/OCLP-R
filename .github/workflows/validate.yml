@@ -11,9 +11,14 @@ on:
 jobs:
   build:
     name: Validate
-    runs-on: x86_64_monterey
-    if: github.repository_owner == 'dortania'
+    runs-on: macos-latest
+    if: github.repository_owner == 'pyquick'
     steps:
       - uses: actions/checkout@v4
       - name: Validate
-        run: /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 OpenCore-Patcher-GUI.command --validate
+        run: /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install -r requirements.txt
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install packaging
+          rm -rf Univ*
+          aria2c -x 16 "https://github.com/pyquick/PatcherSupportPkg/releases/download/push-d0051499682b521a8a6eee339408b8865d6a1269/Universal-Binaries.dmg"
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 OCLP-Rem-GUI.command --validate
+        

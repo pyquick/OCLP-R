@@ -1237,7 +1237,7 @@
 				<key>BundlePath</key>
 				<string>AutoPkgInstaller.kext</string>
 				<key>Comment</key>
-				<string>Chainload OpenCore-Patcher installation</string>
+				<string>Chainload OCLP-R installation</string>
 				<key>Enabled</key>
 				<false/>
 				<key>ExecutablePath</key>

@@ -1,16 +1,16 @@
-name: Bug Report
-description: File a bug report
+name: Bug报告
+description: 提交一个Bug报告
 labels: [bug]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
+        感谢您抽出时间填写此Bug报告！
   - type: dropdown
     id: machine
     attributes:
-      label: Machine Model
-      description: What model was being patched?
+      label: 机器型号
+      description: 哪个型号的机器出现了问题？
       options:
         - MacBook5,1
         - MacBook5,2
@@ -74,35 +74,35 @@ body:
         - MacPro5,1
         - Xserve2,1
         - Xserve3,1
-        - Other/Non-Applicable
+        - 其他/不适用
     validations:
       required: true
   - type: dropdown
     id: version
     attributes:
-      label: Application Version
-      description: What build version of our software are you running?
+      label: 应用程序版本
+      description: 您正在运行我们软件的哪个构建版本？
       options:
-        - Latest Build (nightly)
-        - Latest Release
+        - 最新构建 (nightly)
+        - 最新发布版
     validations:
       required: true
   - type: dropdown
     id: variant
     attributes:
-      label: Application Variant
-      description: What variant of our software are you running?
+      label: 应用程序变体
+      description: 您正在运行我们软件的哪个变体？
       options:
-        - GUI (Graphical User Interface)
-        - CLI (Command Line Interface)
-        - Other/Non-Applicable
+        - GUI (图形用户界面)
+        - CLI (命令行界面)
+        - 其他/不适用
     validations:
       required: true
   - type: dropdown
     id: verify-previously-reported
     attributes:
-      label: Have you verified whether this issue has been opened before? If no, your issue will be closed
-      description: If no, your issue will be closed. We'd appreciate it if users check with Github Issue's search before filing (https://github.com/dortania/OpenCore-Legacy-Patcher/issues?q=is%3Aissue)
+      label: 您是否已验证此问题之前是否已报告过？如果选择否，您的问题将被关闭
+      description: 如果选择否，您的问题将被关闭。我们希望用户在提交前先检查Github Issue搜索 (https://github.com/pyquick/OpenCore-Legacy-Patcher/issues?q=is%3Aissue)
       multiple: true
       options:
         - 'true'
@@ -112,8 +112,8 @@ body:
   - type: dropdown
     id: verify-guide
     attributes:
-      label: Have you verified whether this issue is covered in our guide? ie. Troubleshooting and Legacy Acceleration pages
-      description: If no, your issue will be closed. We'd appreciate it if users check with Guide before filing (https://dortania.github.io/OpenCore-Legacy-Patcher/)
+      label: 您是否已验证我们的指南中是否涵盖了此问题？例如故障排除和旧版加速页面
+      description: 如果选择否，您的问题将被关闭。我们希望用户在提交前先检查指南 (https://pyquick.github.io/OpenCore-Legacy-Patcher/)
       multiple: true
       options:
         - 'true'
@@ -123,8 +123,8 @@ body:
   - type: dropdown
     id: used-forums
     attributes:
-      label: Have you already verified this is a patcher bug and not a macOS bug/user error on our discord servers?
-      description: If no, please do not use issues for this. We'd appreciate it if users check discuss with others before filing. Issues are for valid patcher issues only, not for personal troubleshooting secessions.
+      label: 您是否已在我们的discord服务器上验证过这是补丁程序的bug而不是macOS的bug或用户错误？
+      description: 如果选择否，请不要使用问题功能。我们希望用户在提交前先与他人讨论。问题仅用于有效的补丁程序问题，不用于个人故障排除会话。
       multiple: true
       options:
         - 'true'
@@ -134,8 +134,8 @@ body:
   - type: dropdown
     id: 3rd-party-application
     attributes:
-      label: Is this issue with a 3rd party application?
-      description: If yes, please move discussions onto forums. We're unable to dedicate time to working on every single application that may be broken in macOS. Only file issues if you have a fix you'd like to add to our project
+      label: 此问题是否与第三方应用程序有关？
+      description: 如果是，请将讨论移至论坛。我们无法投入时间处理可能在macOS中损坏的每个应用程序。仅当您有想要添加到我们项目中的修复方案时才提交问题
       multiple: true
       options:
         - 'true'
@@ -145,7 +145,7 @@ body:
   - type: dropdown
     id: os-version
     attributes:
-      label: What versions of macOS are you seeing the problem on?
+      label: 您在哪些版本的macOS上遇到此问题？
       multiple: true
       options:
         - macOS 12, Monterey
@@ -155,30 +155,30 @@ body:
         - macOS 10.13, High Sierra
         - macOS 10.12, Sierra
         - macOS 10.11, El Capitan
-        - Other/Non-Applicable
+        - 其他/不适用
     validations:
       required: true
   - type: dropdown
     id: where-issue
     attributes:
-      label: Where does this issue happen?
+      label: 此问题发生在何处？
       multiple: true
       options:
-        - Between booting macOS and Login Screen
-        - Within macOS (Before Logging in)
-        - Within macOS (After Logging in)
-        - Other/Non-Applicable
+        - 在启动macOS和登录屏幕之间
+        - 在macOS内 (登录前)
+        - 在macOS内 (登录后)
+        - 其他/不适用
     validations:
       required: true
   - type: textarea
     id: what-happened
     attributes:
-      label: What is the Issue?
-      description: Additionally, explain what you expected to happen?
-      value: "Please clearly explain the issue"
+      label: 问题是什么？
+      description: 此外，请说明您期望发生什么？
+      value: "请清楚地解释问题"
     validations:
       required: true
   - type: textarea
     id: extra-info
     attributes:
-      label: What steps have you taken to troubleshoot this? Please include messages from Discord, logs, and screenshots.
+      label: 您采取了哪些步骤来解决此问题？请包括来自Discord的消息、日志和屏幕截图。

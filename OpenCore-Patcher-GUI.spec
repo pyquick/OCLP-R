@@ -13,7 +13,7 @@ from PyInstaller.building.build_main import Analysis
 
 sys.path.append(os.path.abspath(os.getcwd()))
 
-from opencore_legacy_patcher import constants
+from oclp_r import constants
 
 block_cipher = None
 
@@ -22,11 +22,11 @@ datas = [
    ('Universal-Binaries.dmg', '.'),
 ]
 
-if Path("DortaniaInternalResources.dmg").exists():
-   datas.append(('DortaniaInternalResources.dmg', '.'))
+if Path("PyquickInternalResources.dmg").exists():
+   datas.append(('PyquickInternalResources.dmg', '.'))
 
 
-a = Analysis(['OpenCore-Patcher-GUI.command'],
+a = Analysis(['OCLP-R-GUI.command'],
              pathex=[],
              binaries=[],
              datas=datas,
@@ -48,7 +48,7 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='OpenCore-Patcher',
+          name='OCLP-R',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
@@ -66,14 +66,14 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
-               name='OpenCore-Patcher')
+               name='OCLP-R')
 
 app = BUNDLE(coll,
-             name='OpenCore-Patcher.app',
+             name='OCLP-R.app',
              icon="payloads/Icon/AppIcons/OC-Patcher.icns",
-             bundle_identifier="com.dortania.opencore-legacy-patcher",
+             bundle_identifier="com.pyquick.oclp-r",
              info_plist={
-                "CFBundleName": "OpenCore Legacy Patcher",
+                "CFBundleName": "OCLP-R",
                 "CFBundleVersion": constants.Constants().patcher_version,
                 "CFBundleShortVersionString": constants.Constants().patcher_version,
                 "NSHumanReadableCopyright": constants.Constants().copyright_date,
