@@ -1,4 +1,4 @@
-name: CI - Validation
+name: Validate
 
 on:
   push:
@@ -11,18 +11,19 @@ on:
 jobs:
   build:
     name: Validate
-    runs-on: macos-15
+    runs-on: macos-14
     if: github.repository_owner == 'pyquick'
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Python 3.13
+      - name: Setup Python 3.11
         uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: '3.11'
       - name: Validate
-        run: /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install -r requirements.txt
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install packaging
+        run: |
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install -r requirements.txt
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install packaging
           rm -rf Univ*
           aria2c -x 16 "https://github.com/pyquick/PatcherSupportPkg/releases/download/push-d0051499682b521a8a6eee339408b8865d6a1269/Universal-Binaries.dmg"
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 OCLP-R-GUI.command --validate
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 OCLP-R-GUI.command --validate
         
