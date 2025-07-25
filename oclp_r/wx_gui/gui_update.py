@@ -109,7 +109,7 @@ class UpdateFrame(wx.Frame):
             title=self.title,
             global_constants=self.constants,
             download_obj=download_obj,
-            item_name=f"OpenCore Patcher {version_label}",
+            item_name=f"OCLP-R {version_label}",
             download_icon=str(self.constants.app_icon_path)
         )
 
