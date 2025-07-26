@@ -70,7 +70,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           tag_name: push-${{ github.sha }}
-          name: 2.4.0 Beta
+          name: 3.0.0 Tahoe Test Version
           body: ${{ github.event.head_commit.message }}
           prerelease: true
           files: |

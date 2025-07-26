@@ -61,9 +61,12 @@ class SettingsFrame(wx.Frame):
         and relies on 'self._settings()' for populating
         """
 
-        notebook = wx.Notebook(frame)
+        notebook = wx.Notebook(frame, style=wx.NB_MULTILINE)
         notebook.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_NORMAL))
-
+        notebook.SetMinSize((-1, 300))
+        if hasattr(self, 'frame_modal'):
+            current_size = self.frame_modal.GetSize()
+            self.frame_modal.SetSize((current_size[0], max(current_size[1], 750)))
         sizer = wx.BoxSizer(wx.VERTICAL)
         sizer.AddSpacer(10)
 
@@ -929,7 +932,6 @@ class SettingsFrame(wx.Frame):
                     ],
                 },
             },
-    
         }
 
         return settings
