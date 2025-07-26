@@ -42,8 +42,8 @@ class AboutFrame(wx.Frame):
 
         # Description
         description = [
-            "Written by a small group of Mac hobbyists who just",
-            "want to keep old machines out of the landfill!",
+            "I just wanted to relax, but I got addicted to it.",
+            "I just wanted to protect the last hackintosh.",
 
         ]
         spacer = 5
@@ -55,15 +55,15 @@ class AboutFrame(wx.Frame):
             spacer += 20
 
         # Set icon
-        icon_mac = "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/com.apple.macbook-unibody-plastic.icns"
-        icon_mac = wx.StaticBitmap(frame, bitmap=wx.Bitmap(icon_mac, wx.BITMAP_TYPE_ICON), pos=(5, desc.GetPosition()[1] - 15))
+        icon_mac = "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/com.apple.imac-unibody-27.icns"
+        icon_mac = wx.StaticBitmap(frame, bitmap=wx.Bitmap(icon_mac, wx.BITMAP_TYPE_ICON), pos=(5, desc.GetPosition()[1] +5))
         icon_mac.SetSize((160, 160))
         icon_mac.Centre(wx.HORIZONTAL)
 
         icon_path = str(self.constants.app_icon_path)
-        icon = wx.StaticBitmap(frame, bitmap=wx.Bitmap(icon_path, wx.BITMAP_TYPE_ICON), pos=(5, desc.GetPosition()[1] + desc.GetSize()[1] + 17))
+        icon = wx.StaticBitmap(frame, bitmap=wx.Bitmap(icon_path, wx.BITMAP_TYPE_ICON), pos=(5, desc.GetPosition()[1] + desc.GetSize()[1] + 25))
         icon.SetSize((64, 64))
         icon.Centre(wx.HORIZONTAL)
 
         # Set frame size
-        frame.SetSize((-1, icon.GetPosition()[1] + icon.GetSize()[1] + 60))
+        frame.SetSize((-1, icon.GetPosition()[1] + icon.GetSize()[1] + 100))

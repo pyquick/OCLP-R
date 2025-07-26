@@ -870,14 +870,7 @@ class SettingsFrame(wx.Frame):
                     "override_function": self._update_global_settings,
                 },
                 
-                "Statistics": {
-                    "type": "title",
-                },
-                "Populate Stats": {
-                    "type": "populate",
-                    "function": self._populate_app_stats,
-                    "args": wx.Frame,
-                },
+                
             },
             "Developer": {
                 "Validation": {
@@ -930,6 +923,14 @@ class SettingsFrame(wx.Frame):
                     "description": [
                         "Rebuild kernel cache and bless snapshot 🙏",
                     ],
+                },
+                "Statistics": {
+                    "type": "title",
+                },
+                "Populate Stats": {
+                    "type": "populate",
+                    "function": self._populate_app_stats,
+                    "args": wx.Frame,
                 },
             },
         }

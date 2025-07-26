@@ -252,6 +252,12 @@ class Constants:
             os_data.os_data.sonoma,
             os_data.os_data.sequoia,
         ]
+        ## GitHub mirror:
+        ###https://ghfast.top
+        ###https://gh-proxy.com
+        ###https://github.moeyy.xyz
+        ###https://gitapi.simplehac.top
+        self.github_mirror: str = ""
 
     @property
     def special_build(self):
