@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: Build wxPython
-    runs-on: macos-15
+    runs-on: self-hosted
     if: github.repository_owner == 'pyquick'
     permissions:
       contents: write
