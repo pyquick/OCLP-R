@@ -712,8 +712,30 @@ class SettingsFrame(wx.Frame):
                     "override_function": self._update_global_settings,
                     "condition": not bool(self.constants.computer.real_model not in ["MacBookPro8,2", "MacBookPro8,3"])
                 },
+                "Allow Tahoe HDA Patch": {
+                    "type": "checkbox",
+                    "value": self.constants.allow_hda_patch,
+                    "variable": "allow_hda_patch",
+                    "constants_variable": "allow_hda_patch",
+                    "description": [
+                        "When enabled, this will patch the AppleHDA.k",
+                        "ext in S/L/E.",
+                        "Need AppleALC.kext and macOS 26 Beta 2+.",
+                    ],
+                },
                 "wrap_around 1": {
                     "type": "wrap_around",
+                },
+                "Allow Tahoe Old USB Exts Patch": {
+                    "type": "checkbox",
+                    "value": self.constants.allow_usb_patch,
+                    "variable": "allow_usb_patch",
+                    "constants_variable": "allow_usb_patch",
+                    "description": [
+                        "When enabled, this will patch the Old USB",
+                        "extensions in S/L/E.",
+                        "Need macOS 26 Beta 1+.",
+                    ],
                 },
                 "Non-Metal Configuration": {
                     "type": "title",
@@ -818,6 +840,7 @@ class SettingsFrame(wx.Frame):
                     ],
                     "override_function": self._update_global_settings,
                 },
+                
                 "wrap_around 1": {
                     "type": "wrap_around",
                 },
@@ -843,6 +866,7 @@ class SettingsFrame(wx.Frame):
                     ],
                     "override_function": self._update_global_settings,
                 },
+                
                 "Statistics": {
                     "type": "title",
                 },
@@ -905,6 +929,7 @@ class SettingsFrame(wx.Frame):
                     ],
                 },
             },
+    
         }
 
         return settings

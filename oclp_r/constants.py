@@ -17,7 +17,7 @@ class Constants:
         self.patcher_support_pkg_version:     str = "1.9.5"  # PatcherSupportPkg
         self.copyright_date:                  str = "Copyright © 2020-2025 Dortania and Pyquick"
         self.patcher_name:                    str = "OCLP-R"
-
+        
         # URLs
         self.url_patcher_support_pkg:         str = "https://github.com/pyquick/PatcherSupportPkg/releases/download/"
         self.discord_link:                    str = "https://discord.gg/rqdPgH8xSN"
@@ -235,12 +235,14 @@ class Constants:
         self.disable_connectdrivers: bool = False  # Disable ConnectDrivers (hibernation)
         self.set_vmm_cpuid:          bool = False  # Set VMM bit inside CPUID
         self.disable_mediaanalysisd: bool = False  # Set mediaanalysisd to spawn
-        self.force_quad_thread:      bool = False #  Force quad thread mode (cpus=4)
-        self.set_alc_usage:          bool = True  #  Set AppleALC usage
-        self.allow_3rd_party_drives: bool = True  #  Allow ThridPartyDrives quirk
-        self.allow_nvme_fixing:      bool = True  #  Allow NVMe Kernel Space Patches
-        self.apfs_trim_timeout:      bool = True  #  Set APFS Trim timeout
-        self.custom_sip_value:        int = None  #  Set custom SIP value
+        self.force_quad_thread:      bool = False  #  Force quad thread mode (cpus=4)
+        self.allow_hda_patch:        bool = True   # Allow HDA patch on macOS 26 B2+
+        self.allow_usb_patch:        bool = True   # Allow USB patch on macOS 26+
+        self.set_alc_usage:          bool = True   #  Set AppleALC usage
+        self.allow_3rd_party_drives: bool = True   #  Allow ThridPartyDrives quirk
+        self.allow_nvme_fixing:      bool = True   #  Allow NVMe Kernel Space Patches
+        self.apfs_trim_timeout:      bool = True   #  Set APFS Trim timeout
+        self.custom_sip_value:        int = None   #  Set custom SIP value
 
         ## Non-Metal OS support
         self.legacy_accel_support = [

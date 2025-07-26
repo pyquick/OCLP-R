@@ -29,7 +29,7 @@ class LegacyUSBHost(BaseHardware):
         """
         return True
     def present(self) -> bool:
-        return True
+        return self._constants.allow_usb_patch
 
 
     def native_os(self) -> bool:

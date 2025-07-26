@@ -28,7 +28,7 @@ class ModernAudio(BaseHardware):
         """
         AppleHDA was outright removed in macOS 26, so this patch set is always present if OS requires it
         """
-        return True
+        return self._constants.allow_hda_patch 
 
 
     def native_os(self) -> bool:
