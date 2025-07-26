@@ -11,9 +11,9 @@ on:
 jobs:
   build:
     name: Validate
-    runs-on: x86_64_monterey
-    if: github.repository_owner == 'dortania'
+    runs-on: macos-15
+    if: github.repository_owner == 'pyquick'
     steps:
       - uses: actions/checkout@v4
       - name: Validate
-        run: /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 OpenCore-Patcher-GUI.command --validate
+        run: /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 OCLP-R-GUI.command --validate

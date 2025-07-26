@@ -176,7 +176,7 @@ class ZSHFunctions:
         _script = ""
 
         _script += "function _fixSettingsFilePermission() {\n"
-        _script += "    local settingsPath=\"$pathToTargetVolume/Users/Shared/.com.dortania.opencore-legacy-patcher.plist\"\n\n"
+        _script += "    local settingsPath=\"$pathToTargetVolume/Users/Shared/.com.pyquick.oclp-r.plist\"\n\n"
 
         _script += "    if [[ -e $settingsPath ]]; then\n"
         _script += "        echo \"Fixing settings file permissions: $settingsPath\"\n"
@@ -233,7 +233,7 @@ class ZSHFunctions:
         _script = ""
 
         _script += "function _cleanLaunchService() {\n"
-        _script += "    local domain=\"com.dortania.opencore-legacy-patcher\"\n\n"
+        _script += "    local domain=\"com.pyquick.oclp-r\"\n\n"
 
         _script += "    # Iterate over launch agents and daemons\n"
         _script += "    for launchServiceVariant in \"$pathToTargetVolume/Library/LaunchAgents\" \"$pathToTargetVolume/Library/LaunchDaemons\"; do\n"
@@ -315,14 +315,14 @@ class GenerateScripts:
         self.zsh_functions = ZSHFunctions()
 
         self.files = [
-            "Applications/OpenCore-Patcher.app",
-            "Library/Application Support/Dortania/Update.plist",
-            "Library/Application Support/Dortania/OpenCore-Patcher.app",
-            "Library/PrivilegedHelperTools/com.dortania.opencore-legacy-patcher.privileged-helper"
+            "Applications/OCLP-R.app",
+            "Library/Application Support/Pyquick/Update.plist",
+            "Library/Application Support/Pyquick/OCLP-R.app",
+            "Library/PrivilegedHelperTools/com.pyquick.oclp-r.privileged-helper"
         ]
 
         self.additional_auto_pkg_files = [
-            "Library/LaunchAgents/com.dortania.opencore-legacy-patcher.auto-patch.plist"
+            "Library/LaunchAgents/com.pyquick.oclp-r.auto-patch.plist"
         ]
 
 
@@ -357,7 +357,7 @@ class GenerateScripts:
         _script += self.__generate_shebang()
 
         _script += self._generate_header_bar()
-        _script += f"# {'AutoPkg Assets' if is_autopkg else 'OpenCore Legacy Patcher'} Preinstall Script\n"
+        _script += f"# {'AutoPkg Assets' if is_autopkg else 'OCLP-R'} Preinstall Script\n"
         _script += self._generate_header_bar()
         _script += "# Remove old files, and prepare directories.\n"
         _script += self._generate_header_bar()
@@ -412,7 +412,7 @@ class GenerateScripts:
         _script += self.__generate_shebang()
 
         _script += self._generate_header_bar()
-        _script += f"# {'AutoPkg Assets' if is_autopkg else 'OpenCore Legacy Patcher'} Post Install Script\n"
+        _script += f"# {'AutoPkg Assets' if is_autopkg else 'OCLP-R'} Post Install Script\n"
         _script += self._generate_header_bar()
         if is_autopkg:
             _script += "# Set UID, create alias, start patching, and reboot.\n"
@@ -428,11 +428,11 @@ class GenerateScripts:
         _script += self._generate_label_bar()
         _script += "\n"
 
-        _script += "helperPath=\"Library/PrivilegedHelperTools/com.dortania.opencore-legacy-patcher.privileged-helper\"\n"
-        _script += "mainAppPath=\"Library/Application Support/Dortania/OpenCore-Patcher.app\"\n"
-        _script += "shimAppPath=\"Applications/OpenCore-Patcher.app\"\n"
+        _script += "helperPath=\"Library/PrivilegedHelperTools/com.pyquick.oclp-r.privileged-helper\"\n"
+        _script += "mainAppPath=\"Library/Application Support/Pyquick/OCLP-R.app\"\n"
+        _script += "shimAppPath=\"Applications/OCLP-R.app\"\n"
         if is_autopkg:
-            _script += "executablePath=\"$mainAppPath/Contents/MacOS/OpenCore-Patcher\"\n"
+            _script += "executablePath=\"$mainAppPath/Contents/MacOS/OCLP-R\"\n"
 
         _script += "\n\n"
 
@@ -477,9 +477,9 @@ class GenerateScripts:
         _script += self.__generate_shebang()
 
         _script += self._generate_header_bar()
-        _script += f"# OpenCore Legacy Patcher Uninstall Script\n"
+        _script += f"# OCLP-R Uninstall Script\n"
         _script += self._generate_header_bar()
-        _script += "# Remove OpenCore Legacy Patcher files and directories.\n"
+        _script += "# Remove OCLP-R files and directories.\n"
         _script += self._generate_header_bar()
         _script += "\n\n"
 

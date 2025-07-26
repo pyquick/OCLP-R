@@ -3,7 +3,7 @@ const {
 } = require('../package')
 
 module.exports = {
-    title: 'OpenCore Legacy Patcher',
+    title: 'OCLP-R',
     head: [
         ['meta', {
             name: 'theme-color',
@@ -22,7 +22,7 @@ module.exports = {
             href: "/styles/website.css"
         },]
     ],
-    base: '/OpenCore-Legacy-Patcher/',
+    base: '/OCLP-R/',
 
     watch: {
         $page(newPage, oldPage) {
@@ -55,7 +55,7 @@ module.exports = {
 
     themeConfig: {
         lastUpdated: true,
-        repo: 'https://github.com/dortania/OpenCore-Legacy-Patcher/',
+        repo: 'https://github.com/pyquick/OCLP-R/',
         docsDir: 'docs',
         docsBranch: 'main',
         editLinks: true,
