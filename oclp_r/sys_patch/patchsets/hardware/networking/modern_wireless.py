@@ -17,7 +17,11 @@ class ModernWireless(BaseHardware):
     def __init__(self, xnu_major, xnu_minor, os_build, global_constants: Constants) -> None:
         super().__init__(xnu_major, xnu_minor, os_build, global_constants)
 
-
+    def requires_kernel_debug_kit(self) -> bool:
+        """
+        Apple no longer provides standalone kexts in the base OS
+        """
+        return self._xnu_major >= os_data.tahoe.value
     def name(self) -> str:
         """
         Display name for end users
@@ -36,7 +40,12 @@ class ModernWireless(BaseHardware):
                 # We don't officially support this chipset, however we'll throw a bone to hackintosh users
                 device_probe.Broadcom.Chipsets.AirPortBrcmNICThirdParty,
             ]
-        )
+        ) or isinstance(self._computer.wifi, device_probe.IntelWirelessCard)and(
+            self._computer.wifi.chipset in [
+                # We don't officially support this chipset, however we'll throw a bone to hackintosh users
+                device_probe.IntelWirelessCard.Chipsets.IntelWirelessIDs,
+            ]
+        )    
 
 
     def native_os(self) -> bool:

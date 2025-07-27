@@ -726,6 +726,7 @@ class macOSInstallerDownloadFrame(wx.Frame):
             if download_obj.download_complete is False:
                 self.on_return_to_main_menu()
                 return
+            self.on_return_to_main_menu()
     def _validate_installer(self, chunklist_link: str) -> None:
         """
         Validate macOS installer

@@ -30,6 +30,8 @@ from ..wx_gui import (
     gui_settings,
     gui_sys_patch_display,
     gui_update,
+    gui_kdk_dl,
+    gui_ml_dl,
 )
 
 
@@ -103,6 +105,14 @@ class MainFrame(wx.Frame):
                 ],
                 "icon": str(self.constants.icns_resource_path / "OC-Installer.icns"),
             },
+            "KDK Download": {
+                "function": self.on_download_kdk,
+                "description": [
+                    "Provide KDK download",
+                    "for your system.(macOS 13 with OCLP)",
+                ],
+                "icon": str(self.constants.icns_resource_path / "Package.icns"),
+            },
             "⚙️ Settings": {
                 "function": self.on_settings,
                 "description": [
@@ -117,7 +127,15 @@ class MainFrame(wx.Frame):
                 ],
                 "icon": str(self.constants.icns_resource_path / "OC-Patch.icns"),
             },
+            "MetalLib Download": {
 
+               "function": self.on_download_ml,
+                "description": [
+                    "Provide MetalLib for your system.",
+                    "This is required for Metal3802 devices.\n(macOS 15+ Needs!)",
+                ],
+                "icon": str(self.constants.icns_resource_path / "Package.icns"),
+            },
             "Support": {
                 "function": self.on_help,
                 "description": [
@@ -288,6 +306,20 @@ class MainFrame(wx.Frame):
 
     def on_create_macos_installer(self, event: wx.Event = None):
         gui_macos_installer_download.macOSInstallerDownloadFrame(
+            parent=self,
+            title=self.title,
+            global_constants=self.constants,
+            screen_location=self.GetPosition()
+        )
+    def on_download_kdk(self, event: wx.Event = None):
+        gui_kdk_dl.KDKDownloadFrame(
+            parent=self,
+            title=self.title,
+            global_constants=self.constants,
+            screen_location=self.GetPosition()
+        )
+    def on_download_ml(self, event: wx.Event = None):
+        gui_ml_dl.MetallibDownloadFrame(
             parent=self,
             title=self.title,
             global_constants=self.constants,
