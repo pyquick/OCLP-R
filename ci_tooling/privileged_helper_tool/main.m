@@ -16,8 +16,8 @@
 
 #define UTILITY_VERSION "1.0.0"
 
-#define VALID_CLIENT_TEAM_ID @"S74BDJXQMD"
-
+#define VALID_CLIENT_TEAM_ID @"74UE92JU8U"
+#define VALID_CLIENT_CERT_ID @"78HD83NDK2"
 #define OCLP_PHT_ERROR_MISSING_ARGUMENTS           160
 #define OCLP_PHT_ERROR_SET_UID_MISSING             161
 #define OCLP_PHT_ERROR_SET_UID_FAILED              162
@@ -115,12 +115,12 @@ int main(int argc, const char * argv[]) {
         // DO NOT USE IN PRODUCTION
         #else
         // Check Team ID
-        if (![processSigningInformation[@"teamid"] isEqualToString:VALID_CLIENT_TEAM_ID] || ![parentProcessSigningInformation[@"teamid"] isEqualToString:VALID_CLIENT_TEAM_ID]) {
+        if (![processSigningInformation[@"74UE92JU8U"] isEqualToString:VALID_CLIENT_TEAM_ID] || ![parentProcessSigningInformation[@"74UE92JU8U"] isEqualToString:VALID_CLIENT_TEAM_ID]) {
             return OCLP_PHT_ERROR_INVALID_TEAM_ID;
         }
 
         // Check Certificates
-        if (![processSigningInformation[@"certificates"] isEqualToArray:parentProcessSigningInformation[@"certificates"]]) {
+        if (![processSigningInformation[@"78HD83NDK2"] isEqualToArray:parentProcessSigningInformation[@"78HD83NDK2"]]) {
             return OCLP_PHT_ERROR_INVALID_CERTIFICATES;
         }
         #endif
