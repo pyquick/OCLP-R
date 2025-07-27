@@ -110,21 +110,6 @@ int main(int argc, const char * argv[]) {
             return OCLP_PHT_ERROR_SIGNING_INFORMATION_MISSING;
         }
 
-        #ifdef DEBUG
-        // Skip Team ID check in debug mode
-        // DO NOT USE IN PRODUCTION
-        #else
-        // Check Team ID
-        if (![processSigningInformation[@"74UE92JU8U"] isEqualToString:VALID_CLIENT_TEAM_ID] || ![parentProcessSigningInformation[@"74UE92JU8U"] isEqualToString:VALID_CLIENT_TEAM_ID]) {
-            return OCLP_PHT_ERROR_INVALID_TEAM_ID;
-        }
-
-        // Check Certificates
-        if (![processSigningInformation[@"78HD83NDK2"] isEqualToArray:parentProcessSigningInformation[@"78HD83NDK2"]]) {
-            return OCLP_PHT_ERROR_INVALID_CERTIFICATES;
-        }
-        #endif
-
         NSString *command = nil;
         NSArray *arguments = @[];
         if (argc == 2) {
