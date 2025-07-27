@@ -137,7 +137,7 @@ class NetworkUtilities:
             requests.exceptions.ConnectionError,
             requests.exceptions.HTTPError
         ) as error:
-            logging.warn(f"Error calling requests.post: {error}")
+            logging.warning(f"Error calling requests.post: {error}")
             # Return empty response object
             return requests.Response()
 
@@ -162,12 +162,13 @@ class DownloadObject:
 
     """
 
-    def __init__(self, url: str, path: str) -> None:
+    def __init__(self, url: str, path: str,size:str=None) -> None:
         self.url:       str = url
         self.status:    str = DownloadStatus.INACTIVE
         self.error_msg: str = ""
         self.filename:  str = self._get_filename()
-
+        self.size:      str = size
+        
         self.filepath:  Path = Path(path)
 
         self.total_file_size:      float = 0.0
@@ -256,7 +257,12 @@ class DownloadObject:
 
         return Path(self.url).name
 
-
+    def convert_size(self, size_str):
+        units = {'KB': 1024, 'MB': 1024**2, 'GB': 1024**3, 'TB': 1024**4}
+        for unit, factor in units.items():
+            if unit in size_str:
+               return float(size_str.replace(unit, '')) * factor
+        return float(size_str)
     def _populate_file_size(self) -> None:
         """
         Get the file size of the file to be downloaded
@@ -268,6 +274,8 @@ class DownloadObject:
             result = SESSION.head(self.url, allow_redirects=True, timeout=5)
             if 'Content-Length' in result.headers:
                 self.total_file_size = float(result.headers['Content-Length'])
+                if self.size != None:
+                    self.total_file_size = self.convert_size(self.size)
             else:
                 raise Exception("Content-Length missing from headers")
         except Exception as e:
@@ -350,6 +358,7 @@ class DownloadObject:
                 for i, chunk in enumerate(response.iter_content(1024 * 1024 * 4)):
                     if self.should_stop:
                         raise Exception("Download stopped")
+                    
                     if chunk:
                         file.write(chunk)
                         self.downloaded_file_size += len(chunk)
