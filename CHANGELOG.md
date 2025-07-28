@@ -6,6 +6,7 @@
 - Adopt Liquid Glass-conformant app icon
 - Increment Binaries:
   - OpenCorePkg 1.0.5 - rolling (f03819e)
+  
 
 ## 2.4.0
 - Reduce CPU usage on main UI thread
