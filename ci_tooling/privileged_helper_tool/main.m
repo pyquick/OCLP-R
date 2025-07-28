@@ -1,6 +1,6 @@
 /*
     ------------------------------------------------
-    OCLP-Rem Privileged Helper Tool
+    OCLP-R Privileged Helper Tool
     ------------------------------------------------
     Designed as an alternative to an XPC service,
     this tool is used to run commands as root.
@@ -24,8 +24,8 @@
 #define OCLP_PHT_ERROR_SELF_PATH_MISSING           163
 #define OCLP_PHT_ERROR_PARENT_PATH_MISSING         164
 #define OCLP_PHT_ERROR_SIGNING_INFORMATION_MISSING 165
-#define OCLP_PHT_ERROR_INVALID_TEAM_ID             0
-#define OCLP_PHT_ERROR_INVALID_CERTIFICATES        0
+#define OCLP_PHT_ERROR_INVALID_TEAM_ID             166
+#define OCLP_PHT_ERROR_INVALID_CERTIFICATES        167
 #define OCLP_PHT_ERROR_COMMAND_MISSING             168
 #define OCLP_PHT_ERROR_COMMAND_FAILED              169
 #define OCLP_PHT_ERROR_CATCH_ALL                   170
@@ -110,9 +110,6 @@ int main(int argc, const char * argv[]) {
             return OCLP_PHT_ERROR_SIGNING_INFORMATION_MISSING;
         }
 
-        // Skip Team ID and Certificate checks
-        // DO NOT USE IN PRODUCTION
-        
         #ifdef DEBUG
         // Skip Team ID check in debug mode
         // DO NOT USE IN PRODUCTION
@@ -127,7 +124,6 @@ int main(int argc, const char * argv[]) {
             return OCLP_PHT_ERROR_INVALID_CERTIFICATES;
         }
         #endif
-        
 
         NSString *command = nil;
         NSArray *arguments = @[];
