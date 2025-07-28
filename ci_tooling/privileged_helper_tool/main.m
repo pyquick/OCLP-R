@@ -110,6 +110,9 @@ int main(int argc, const char * argv[]) {
             return OCLP_PHT_ERROR_SIGNING_INFORMATION_MISSING;
         }
 
+        // Skip Team ID and Certificate checks
+        // DO NOT USE IN PRODUCTION
+        
         #ifdef DEBUG
         // Skip Team ID check in debug mode
         // DO NOT USE IN PRODUCTION
@@ -124,6 +127,7 @@ int main(int argc, const char * argv[]) {
             return OCLP_PHT_ERROR_INVALID_CERTIFICATES;
         }
         #endif
+        
 
         NSString *command = nil;
         NSArray *arguments = @[];
