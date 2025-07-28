@@ -1,6 +1,6 @@
 /*
     ------------------------------------------------
-    OCLP-R Privileged Helper Tool
+    OCLP-Rem Privileged Helper Tool
     ------------------------------------------------
     Designed as an alternative to an XPC service,
     this tool is used to run commands as root.
@@ -16,8 +16,8 @@
 
 #define UTILITY_VERSION "1.0.0"
 
-#define VALID_CLIENT_TEAM_ID @"74UE92JU8U"
-#define VALID_CLIENT_CERT_ID @"78HD83NDK2"
+#define VALID_CLIENT_TEAM_ID @"74U2CH74U6"
+
 #define OCLP_PHT_ERROR_MISSING_ARGUMENTS           160
 #define OCLP_PHT_ERROR_SET_UID_MISSING             161
 #define OCLP_PHT_ERROR_SET_UID_FAILED              162
@@ -109,6 +109,21 @@ int main(int argc, const char * argv[]) {
         if (processSigningInformation == nil || parentProcessSigningInformation == nil) {
             return OCLP_PHT_ERROR_SIGNING_INFORMATION_MISSING;
         }
+
+        #ifdef DEBUG
+        // Skip Team ID check in debug mode
+        // DO NOT USE IN PRODUCTION
+        #else
+        // Check Team ID
+        if (![processSigningInformation[@"74U2CH74U6"] isEqualToString:VALID_CLIENT_TEAM_ID] || ![parentProcessSigningInformation[@"74U2CH74U6"] isEqualToString:VALID_CLIENT_TEAM_ID]) {
+            return OCLP_PHT_ERROR_INVALID_TEAM_ID;
+        }
+
+        // Check Certificates
+        if (![processSigningInformation[@"636H9J6N4H"] isEqualToArray:parentProcessSigningInformation[@"636H9J6N4H"]]) {
+            return OCLP_PHT_ERROR_INVALID_CERTIFICATES;
+        }
+        #endif
 
         NSString *command = nil;
         NSArray *arguments = @[];

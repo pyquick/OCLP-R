@@ -20,5 +20,5 @@ jobs:
           /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install -r requirements.txt
           /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install packaging
           rm -rf Univ*
-          /usr/local/aria2/bin/aria2c -x 16 "https://github.com/pyquick/PatcherSupportPkg/releases/download/push-c7d772cf8650cbd1b38626ddddae9ab1f9e89c3a/Universal-Binaries.dmg"
+          /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-c7d772cf8650cbd1b38626ddddae9ab1f9e89c3a/Universal-Binaries.dmg"
           /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 OCLP-R-GUI.command --validate
