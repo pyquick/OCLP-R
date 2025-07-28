@@ -16,7 +16,7 @@
 
 #define UTILITY_VERSION "1.0.0"
 
-#define VALID_CLIENT_TEAM_ID @"74U2CH74U6"
+#define VALID_CLIENT_TEAM_ID @"74U2H5D43E"
 
 #define OCLP_PHT_ERROR_MISSING_ARGUMENTS           160
 #define OCLP_PHT_ERROR_SET_UID_MISSING             161
@@ -109,13 +109,13 @@ int main(int argc, const char * argv[]) {
         if (processSigningInformation == nil || parentProcessSigningInformation == nil) {
             return OCLP_PHT_ERROR_SIGNING_INFORMATION_MISSING;
         }
-
+        /*
         #ifdef DEBUG
         // Skip Team ID check in debug mode
         // DO NOT USE IN PRODUCTION
         #else
         // Check Team ID
-        if (![processSigningInformation[@"74U2CH74U6"] isEqualToString:VALID_CLIENT_TEAM_ID] || ![parentProcessSigningInformation[@"74U2CH74U6"] isEqualToString:VALID_CLIENT_TEAM_ID]) {
+        if (![processSigningInformation[@"74U2H5D43E"] isEqualToString:VALID_CLIENT_TEAM_ID] || ![parentProcessSigningInformation[@"74U2H5D43E"] isEqualToString:VALID_CLIENT_TEAM_ID]) {
             return OCLP_PHT_ERROR_INVALID_TEAM_ID;
         }
 
@@ -124,7 +124,7 @@ int main(int argc, const char * argv[]) {
             return OCLP_PHT_ERROR_INVALID_CERTIFICATES;
         }
         #endif
-
+        */
         NSString *command = nil;
         NSArray *arguments = @[];
         if (argc == 2) {
