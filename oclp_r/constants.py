@@ -156,7 +156,7 @@ class Constants:
         self.update_stage:               int = 0  #     Determine update stage (see gui_support.py)
         self.log_filepath:              Path = None  #  Path to log file
         self.thread_sleep_interval:    float = 0.01  #  Sleep interval between UI updates (seconds) - balance between UI responsiveness and CPU usage
-
+        self.allow_wireless_patch:      bool = False
         self.commit_info: tuple = (None, None, None)  # Commit info (Branch, Commit Date, Commit URL)
 
         ## Hardware

@@ -33,7 +33,7 @@ class ModernWireless(BaseHardware):
         """
         Targeting Modern Wireless
         """
-        if self._xnu_major>=os_data.tahoe.value:
+        if self._xnu_major>=os_data.tahoe.value and self._constants.allow_wireless_patch is False:
             return False
         return isinstance(self._computer.wifi, device_probe.Broadcom) and (
             self._computer.wifi.chipset in [

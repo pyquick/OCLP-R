@@ -740,6 +740,18 @@ class SettingsFrame(wx.Frame):
                         "Need macOS 26 Beta 1+.",
                     ],
                 },
+                "Allow Tahoe Modern Wireless Patch": {
+                    "type": "checkbox",
+                    "value": self.constants.allow_wireless_patch,
+                    "variable": "allow_wireless_patch",
+                    "constants_variable": "allow_wireless_patch",
+                    "description": [
+                        "When enabled, this will patch the Intel/BCM ",
+                        "Wireless on macOS 26 Beta 1+.",
+                        "It is not ready! It will be kernel panic.",
+                    ],
+                    "condition":False
+                },
                 "Non-Metal Configuration": {
                     "type": "title",
                 },
