@@ -70,30 +70,54 @@ class ModernWireless(BaseHardware):
         """
         if self.native_os() is True:
             return {}
-
-        return {
-            "Modern Wireless": {
-                PatchType.OVERWRITE_SYSTEM_VOLUME: {
-                    "/usr/libexec": {
-                        "airportd": f"13.7.2-{self._xnu_major}",
-                        "wifip2pd": f"13.7.2-{self._xnu_major}",
+        if self._xnu_major>=os_data.tahoe.value:
+            return {
+                "Modern Wireless": {
+                    PatchType.OVERWRITE_SYSTEM_VOLUME: {
+                        "/usr/libexec": {
+                            "airportd": f"13.7.2-{self._xnu_major}",
+                            "wifip2pd": f"13.7.2-{self._xnu_major}",
+                        },
+                        "/usr/lib": {
+                            "dyld": "15.5",
+                        },
+                        "/System/Library/CoreServices": {
+                            **({ "WiFiAgent.app": "14.7.2" } if self._xnu_major >= os_data.sequoia else {}),
+                        },
                     },
-                    "/usr/lib": {
-                        "dyld": "15.5",
-                    },
-                    "/System/Library/CoreServices": {
-                        **({ "WiFiAgent.app": "14.7.2" } if self._xnu_major >= os_data.sequoia else {}),
-                    },
+                    PatchType.MERGE_SYSTEM_VOLUME: {
+                        "/System/Library/Frameworks": {
+                            "CoreWLAN.framework": f"13.7.2-{self._xnu_major}",
+                        },
+                        "/System/Library/PrivateFrameworks": {
+                            "CoreWiFi.framework":       f"13.7.2-{self._xnu_major}",
+                            "IO80211.framework":        f"13.7.2-{self._xnu_major}",
+                            "WiFiPeerToPeer.framework": f"13.7.2-{self._xnu_major}",
+                        },
+                    }
                 },
-                PatchType.MERGE_SYSTEM_VOLUME: {
-                    "/System/Library/Frameworks": {
-                        "CoreWLAN.framework": f"13.7.2-{self._xnu_major}",
+            }
+        else:
+             return {
+                "Modern Wireless": {
+                    PatchType.OVERWRITE_SYSTEM_VOLUME: {
+                        "/usr/libexec": {
+                            "airportd": f"13.7.2-{self._xnu_major}",
+                            "wifip2pd": f"13.7.2-{self._xnu_major}",
+                        },
+                        "/System/Library/CoreServices": {
+                            **({ "WiFiAgent.app": "14.7.2" } if self._xnu_major >= os_data.sequoia else {}),
+                        },
                     },
-                    "/System/Library/PrivateFrameworks": {
-                        "CoreWiFi.framework":       f"13.7.2-{self._xnu_major}",
-                        "IO80211.framework":        f"13.7.2-{self._xnu_major}",
-                        "WiFiPeerToPeer.framework": f"13.7.2-{self._xnu_major}",
-                    },
-                }
-            },
-        }
+                    PatchType.MERGE_SYSTEM_VOLUME: {
+                        "/System/Library/Frameworks": {
+                            "CoreWLAN.framework": f"13.7.2-{self._xnu_major}",
+                        },
+                        "/System/Library/PrivateFrameworks": {
+                            "CoreWiFi.framework":       f"13.7.2-{self._xnu_major}",
+                            "IO80211.framework":        f"13.7.2-{self._xnu_major}",
+                            "WiFiPeerToPeer.framework": f"13.7.2-{self._xnu_major}",
+                        },
+                    }
+                },
+            }

@@ -281,25 +281,6 @@ class macOSInstallerDownloadFrame(wx.Frame):
         self._display_available_dmgs()
     def detect_os_build(self, rsr: bool = False) -> str:
         import plistlib
-        """
-        Detect the booted OS build
-
-        Implementation note:
-            With macOS 13.2, Apple implemented the Rapid Security Response system which
-            will change the reported build to the RSR version and not the original host
-
-            To get the proper versions:
-            - Host: /System/Library/CoreServices/SystemVersion.plist
-            - RSR:  /System/Volumes/Preboot/Cryptexes/OS/System/Library/CoreServices/SystemVersion.plist
-
-
-        Parameters:
-            rsr (bool): Whether to use the RSR version of the build
-
-        Returns:
-            str: OS build (ex. 21A5522h)
-        """
-
         file_path = "/System/Library/CoreServices/SystemVersion.plist"
         if rsr is True:
             file_path = f"/System/Volumes/Preboot/Cryptexes/OS{file_path}"
@@ -321,7 +302,7 @@ class macOSInstallerDownloadFrame(wx.Frame):
         self.frame_modal = wx.Dialog(self, title="Select DMGs from SimpleHac", size=(505, 500))
 
         # Title: Select macOS Installer
-        title_label = wx.StaticText(self.frame_modal, label="Select DMGs from SimpleHac", pos=(-1,-1))
+        title_label = wx.StaticText(self.frame_modal, label="Select DMGs", pos=(-1,-1))
         title_label.SetFont(gui_support.font_factory(19, wx.FONTWEIGHT_BOLD))
 
         # macOS Installers list
@@ -379,7 +360,7 @@ class macOSInstallerDownloadFrame(wx.Frame):
         self.copy_button.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_NORMAL))
         if show_full is True:
             self.copy_button.Disable()
-        self.copy_button.SetToolTip("Copy the download link of the selected macOS Installer.")
+        self.copy_button.SetToolTip("Copy the download link of the selected DMG.")
         self.copy_button.Bind(wx.EVT_BUTTON, lambda event, installers=installers: self.on_copy_dmg_link(installers))
 
         return_button = wx.Button(self.frame_modal, label="Return to Main Menu", pos=(-1, -1), size=(150, -1))

@@ -173,7 +173,7 @@ class KDKDownloadFrame(wx.Frame):
         self.select_button = wx.Button(self.frame_modal, label="Download", pos=(-1, -1), size=(150, -1))
         self.select_button.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_NORMAL))
         self.select_button.Bind(wx.EVT_BUTTON, lambda event, installers=installers: self.on_download_installer(installers))
-        self.select_button.SetToolTip("Choose KDK")
+        self.select_button.SetToolTip("Choose KDKs")
         self.select_button.SetDefault()
         if show_full is True:
             self.select_button.Disable()
