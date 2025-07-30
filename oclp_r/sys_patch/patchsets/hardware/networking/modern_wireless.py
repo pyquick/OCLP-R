@@ -78,6 +78,9 @@ class ModernWireless(BaseHardware):
                         "airportd": f"13.7.2-{self._xnu_major}",
                         "wifip2pd": f"13.7.2-{self._xnu_major}",
                     },
+                    "/usr/lib": {
+                        "dyld": "15.5",
+                    },
                     "/System/Library/CoreServices": {
                         **({ "WiFiAgent.app": "14.7.2" } if self._xnu_major >= os_data.sequoia else {}),
                     },
