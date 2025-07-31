@@ -123,7 +123,7 @@ class Constants:
         ## flagersgit
         ## https://github.com/flagersgit/KDKlessWorkaround
         self.kdkless_version: str = "1.0.0"
-
+        self.audio_type :  str ="AppleALC"#AppleALC || VoodooHDA
         ## Jazzzny
         self.legacy_keyboard: str = "1.0.0"  # LegacyKeyboardInjector - Jazzzny
 

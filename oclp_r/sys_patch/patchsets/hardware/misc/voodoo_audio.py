@@ -1,17 +1,14 @@
-"""
-modern_audio.py: Modern Audio patch set for macOS 26
-"""
 
+
+
+"""
+voodoo_audio.py: Modern Audio patch set for macOS 26(VoodooHDA)
+"""
 from ..base import BaseHardware, HardwareVariant
-
 from ...base import PatchType
-
 from .....constants import Constants
-
 from .....datasets.os_data import os_data
-
-
-class ModernAudio(BaseHardware):
+class VoodooAudio(BaseHardware):
 
     def __init__(self, xnu_major, xnu_minor, os_build, global_constants: Constants) -> None:
         super().__init__(xnu_major, xnu_minor, os_build, global_constants)
@@ -21,28 +18,19 @@ class ModernAudio(BaseHardware):
         """
         Display name for end users
         """
-        return f"{self.hardware_variant()}: Modern Audio"
+        return f"{self.hardware_variant()}: Voodoo Audio"
 
 
     def present(self) -> bool:
-        """
-        AppleHDA was outright removed in macOS 26, so this patch set is always present if OS requires it
-        """
-       
-        return self._constants.allow_hda_patch and self._constants.audio_type=="AppleALC"
+        return self._constants.audio_type=="VoodooHDA"
 
 
     def native_os(self) -> bool:
-        """
-        - Everything before macOS Tahoe 26 is considered native
-        """
         if self._xnu_major < os_data.tahoe.value:
             return True
-
         # Technically, macOS Tahoe Beta 1 is also native, so return True
         if self._os_build == "25A5279m":
             return True
-
         return False
 
 
@@ -53,26 +41,27 @@ class ModernAudio(BaseHardware):
         return HardwareVariant.MISCELLANEOUS
 
 
-    def _modern_audio_patches(self) -> dict:
+    def _voodoo_audio_patches(self) -> dict:
         """
         Patches for Modern Audio
         """
         return {
-            "Modern Audio": {
-                PatchType.OVERWRITE_SYSTEM_VOLUME: {
-                    "/System/Library/Extensions": {
-                        "AppleHDA.kext":      "26.0 Beta 1",
+            "Voodoo Audio": {
+                PatchType.MERGE_SYSTEM_VOLUME: {
+                    "/Library/Extensions": {
+                        "VoodooHDA.kext":"Voodoo",
                     },
+                    f"/Library/PreferencePanes":{
+                        "VoodooHDA.prefPane":"Voodoo",
+                    }
                 },
             },
         }
-
-
     def patches(self) -> dict:
         """
-        Patches for modern audio
+        Patches for voodoo audio
         """
         if self.native_os() is True:
             return {}
 
-        return self._modern_audio_patches()
+        return self._voodoo_audio_patches()

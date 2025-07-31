@@ -40,8 +40,14 @@ get_font_face.font_face = None
 # Centralize the common options for font creation
 def font_factory(size: int, weight):
     return wx.Font(size, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, weight, False, get_font_face())
-
-
+class CheckModernAudio:
+    def __init__(self):
+        self.constants: constants.Constants = constants.Constants
+    def audio_check(self):
+        if self.constants.audio_type=="VoodooHDA":
+            return False
+        if self.constants.audio_type=="AppleALC":
+            return True
 class AutoUpdateStages:
     INACTIVE = 0
     CHECKING = 1

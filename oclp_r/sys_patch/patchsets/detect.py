@@ -47,6 +47,7 @@ from .hardware.misc import (
     t1_security,
     usb11,
     cpu_missing_avx,
+    voodoo_audio,
 )
 
 from ... import constants
@@ -131,6 +132,7 @@ class HardwarePatchsetDetection:
 
             legacy_audio.LegacyAudio,
             modern_audio.ModernAudio,
+            voodoo_audio.VoodooAudio,
             legacy_usb.LegacyUSBHost,
             display_backlight.DisplayBacklight,
             gmux.GraphicsMultiplexer,

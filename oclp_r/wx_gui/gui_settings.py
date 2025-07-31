@@ -662,7 +662,6 @@ class SettingsFrame(wx.Frame):
                         "   - Advanced: Overrides Model and serial.",
                     ],
                 },
-
                 "SMBIOS Spoof Model": {
                     "type": "choice",
                     "choices": models + ["Default"],
@@ -697,6 +696,7 @@ class SettingsFrame(wx.Frame):
                 },
             },
             "Root Patching": {
+                
                 "Root Volume Patching": {
                     "type": "title",
                 },
@@ -725,6 +725,7 @@ class SettingsFrame(wx.Frame):
                         "ext in S/L/E.",
                         "Need AppleALC.kext and macOS 26 Beta 2+.",
                     ],
+                    "condition":bool(gui_support.CheckModernAudio.audio_check(self))
                 },
                 "wrap_around 1": {
                     "type": "wrap_around",
@@ -752,6 +753,8 @@ class SettingsFrame(wx.Frame):
                     ],
                     "condition":False
                 },
+                
+                
                 "Non-Metal Configuration": {
                     "type": "title",
                 },
@@ -827,6 +830,7 @@ class SettingsFrame(wx.Frame):
                     "override_function": self._update_system_defaults,
                     "condition": gui_support.CheckProperties(self.constants).host_is_non_metal(general_check=True)
                 },
+                
             },
             "App": {
                 "General": {
@@ -855,7 +859,21 @@ class SettingsFrame(wx.Frame):
                     ],
                     "override_function": self._update_global_settings,
                 },
-                
+                "Audio Patch choice": {
+                    "type": "choice",
+                    "choices": [
+                        "AppleALC",
+                        "VoodooHDA"
+                    ],
+                    "value": self.constants.audio_type,
+                    "variable": "audio_type",
+                    "constants_variable": "audio_type",
+                    "description": [
+                        "Supported Levels:",
+                        "   - AppleALC: AppleALC patch on Tahoe.\nNote: Apple Delete AppleHDA.kext on Tahoe Beta2.",
+                        "   - VoodooHDA: VoodooHDA patch on Tahoe.\nAs a replacement for AppleHDA + AppleALC",
+                    ],
+                },
                 "wrap_around 1": {
                     "type": "wrap_around",
                 },
@@ -881,7 +899,6 @@ class SettingsFrame(wx.Frame):
                     ],
                     "override_function": self._update_global_settings,
                 },
-                
                 
             },
             "Developer": {
