@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     name: Validate
-    runs-on: self-hosted
+    runs-on: macOS-15
     if: github.repository_owner == 'pyquick'
     steps:
       - uses: actions/checkout@v4
