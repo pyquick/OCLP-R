@@ -26,10 +26,7 @@ class VoodooAudio(BaseHardware):
 
 
     def native_os(self) -> bool:
-        if self._xnu_major < os_data.tahoe.value:
-            return True
-        # Technically, macOS Tahoe Beta 1 is also native, so return True
-        if self._os_build == "25A5279m":
+        if self._xnu_major < os_data.monterey.value:
             return True
         return False
 
@@ -48,12 +45,18 @@ class VoodooAudio(BaseHardware):
         return {
             "Voodoo Audio": {
                 PatchType.MERGE_SYSTEM_VOLUME: {
-                    "/Library/Extensions": {
+                    "/System/Library/Extensions": {
                         "VoodooHDA.kext":"Voodoo",
+                        **({ "AppleHDADisabler.kext": "Voodoo" } if self._xnu_major <= os_data.sequoia else {}),
                     },
-                    f"/Library/PreferencePanes":{
+                    "/System/Library/PreferencePanes":{
                         "VoodooHDA.prefPane":"Voodoo",
-                    }
+                    },
+                },
+                PatchType.REMOVE_SYSTEM_VOLUME: {
+                    "/System/Library/Extensions": [
+                        "AppleHDA.kext" if self._xnu_major >= os_data.tahoe and self._os_build != "25A5279m"  else "",
+                    ],
                 },
             },
         }

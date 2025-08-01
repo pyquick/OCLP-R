@@ -33,7 +33,7 @@ class ModernWireless(BaseHardware):
         """
         Targeting Modern Wireless
         """
-        if self._xnu_major>=os_data.tahoe.value and self._constants.allow_wireless_patch is False:
+        if self._xnu_major>=os_data.tahoe.value:
             return False
         return isinstance(self._computer.wifi, device_probe.Broadcom) and (
             self._computer.wifi.chipset in [
@@ -71,32 +71,7 @@ class ModernWireless(BaseHardware):
         if self.native_os() is True:
             return {}
         if self._xnu_major>=os_data.tahoe.value:
-            return {
-                "Modern Wireless": {
-                    PatchType.OVERWRITE_SYSTEM_VOLUME: {
-                        "/usr/libexec": {
-                            "airportd": f"13.7.2-24",
-                            "wifip2pd": f"13.7.2-24",
-                        },
-                        "/usr/lib": {
-                            "dyld": "15.5",
-                        },
-                        "/System/Library/CoreServices": {
-                            **({ "WiFiAgent.app": "14.7.2" } if self._xnu_major >= os_data.sequoia else {}),
-                        },
-                    },
-                    PatchType.MERGE_SYSTEM_VOLUME: {
-                        "/System/Library/Frameworks": {
-                            "CoreWLAN.framework": f"13.7.2-24",
-                        },
-                        "/System/Library/PrivateFrameworks": {
-                            "CoreWiFi.framework":       f"13.7.2-24",
-                            "IO80211.framework":        f"13.7.2-24",
-                            "WiFiPeerToPeer.framework": f"13.7.2-24",
-                        },
-                    }
-                },
-            }
+            return {}
         else:
              return {
                 "Modern Wireless": {

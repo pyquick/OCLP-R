@@ -751,6 +751,7 @@ class SettingsFrame(wx.Frame):
                         "Wireless on macOS 26 Beta 1+.",
                         "It is not ready! It will be kernel panic.",
                     ],
+                    "condition":False
                 },
                 
                 

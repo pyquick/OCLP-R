@@ -59,6 +59,14 @@ class ModernAudio(BaseHardware):
         """
         return {
             "Modern Audio": {
+                PatchType.REMOVE_SYSTEM_VOLUME: {
+                    "/System/Library/Extensions": [
+                        "VoodooHDA.kext",
+                    ],
+                    "/System/Library/PreferencePanes":[
+                        "VoodooHDA.prefPane",
+                    ]
+                },
                 PatchType.OVERWRITE_SYSTEM_VOLUME: {
                     "/System/Library/Extensions": {
                         "AppleHDA.kext":      "26.0 Beta 1",

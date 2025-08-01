@@ -28,7 +28,7 @@ jobs:
           rm -rf Univ*
           rm -rf *pay*.dmg
           /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install -r requirements.txt
-          /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-8f2949b54177de87c917d8f161f33b1d456f66d4/Universal-Binaries.dmg"
+          /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-e0991f9deb7e08bd450a65812ae62f89c5814147/Universal-Binaries.dmg"
       
       - name: Force Universal2 charset for Python
         run: |
