@@ -241,8 +241,6 @@ class SysPatchDisplayFrame(wx.Frame):
         # Set frame size
         frame.SetSize((-1, return_button.GetPosition().y + return_button.GetSize().height + 15))
         frame.ShowWindowModal()
-
-
     def on_start_root_patching(self, patches: dict):
         frame = gui_sys_patch_start.SysPatchStartFrame(
             parent=None,
