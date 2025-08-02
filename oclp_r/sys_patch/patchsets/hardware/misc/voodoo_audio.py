@@ -44,6 +44,17 @@ class VoodooAudio(BaseHardware):
         """
         return {
             "Voodoo Audio": {
+                PatchType.REMOVE_SYSTEM_VOLUME: {
+                    "/Library/PreferencePanes":{
+                        "VoodooHDA.prefPane",
+                    },
+                    "/Library/Extensions":{
+                        "VoodooHDA.kext",
+                    },
+                    "/System/Library/Extensions": [
+                        "AppleHDA.kext" if self._xnu_major >= os_data.tahoe and self._os_build != "25A5279m"  else "",
+                    ],
+                },
                 PatchType.MERGE_SYSTEM_VOLUME: {
                     "/System/Library/Extensions": {
                         "VoodooHDA.kext":"Voodoo",
@@ -52,11 +63,6 @@ class VoodooAudio(BaseHardware):
                     "/System/Library/PreferencePanes":{
                         "VoodooHDA.prefPane":"Voodoo",
                     },
-                },
-                PatchType.REMOVE_SYSTEM_VOLUME: {
-                    "/System/Library/Extensions": [
-                        "AppleHDA.kext" if self._xnu_major >= os_data.tahoe and self._os_build != "25A5279m"  else "",
-                    ],
                 },
             },
         }

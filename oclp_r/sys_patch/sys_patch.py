@@ -307,6 +307,9 @@ class PatchSysVolume:
         Clean VoodooHDA.kext 's PerforencePanes
         """
         import os
+        if os.path.exists("/Library/Extensions/VoodooHDA.kext"):
+            logging.info("- Found VoodooHDA.kext, removing old kexts")
+            subprocess_wrapper.run_as_root_and_verify(["/bin/rm","-Rf","/Library/Extensions/VoodooHDA.kext"])
         if os.path.exists("/Library/PreferencePanes/VoodooHDA.prefPane"):
             logging.info("- Found VoodooHDA.prefPane, removing prefPane")
             subprocess_wrapper.run_as_root_and_verify(["/bin/rm","-Rf","/Library/PreferencePanes/VoodooHDA.prefPane"])

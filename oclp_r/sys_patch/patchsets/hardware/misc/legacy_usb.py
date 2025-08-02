@@ -88,9 +88,6 @@ class LegacyUSBHost(BaseHardware):
                         "IOUSBHostFamily.kext": "15.5",  
                         "IOUSBMassStorageDriver.kext": "15.5",
                     },
-                    "/System/Library/Frameworks": {
-                        "IOUSBHost.framework":"15.5",
-                    },
                 },
             },
         }
