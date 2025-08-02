@@ -107,7 +107,7 @@ class MetallibDownloadFrame(wx.Frame):
                 self.kdk_data_full=self.kdk_data
                 self.kdk_data_latest=self.kdk_data_latest
             except requests.RequestException as e:
-                wx.MessageBox(f"获取Metallib信息失败: {e}", "错误", wx.OK | wx.ICON_ERROR)
+                wx.MessageBox(f"Fetch Metal Libraries Error: {e}", "Error", wx.OK | wx.ICON_ERROR)
                 self.on_return_to_main_menu()
         thread = threading.Thread(target=_fetch_installers)
         thread.start()
@@ -135,25 +135,33 @@ class MetallibDownloadFrame(wx.Frame):
         self.os_build_tahoe=self.detect_os_build(False)
         bundles = [wx.BitmapBundle.FromBitmaps(self.icons)]
         self.frame_modal.Destroy()
-        self.frame_modal = wx.Dialog(self, title="Choose Metallib Version", size=(550, 580))
+        self.frame_modal = wx.Dialog(self, title="Choose Metallib Version", size=(420, 580))
         title_label = wx.StaticText(self.frame_modal, label="Choose Metallib", pos=(-1,-1))
         title_label.SetFont(gui_support.font_factory(19, wx.FONTWEIGHT_BOLD))
         id = wx.NewIdRef()
         self.list = wx.ListCtrl(self.frame_modal, id, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_NO_HEADER | wx.BORDER_SUNKEN)
         self.list.SetSmallImages(bundles)
-        self.list.InsertColumn(0, "name",        width=300)
+        self.list.InsertColumn(0, "name",        width=160)
         self.list.InsertColumn(1, "version",      width=50)
         self.list.InsertColumn(2, "build",        width=75)
         self.list.InsertColumn(3, "seen", width=105)
         if show_full is False:
-            self.frame_modal.SetSize((550, 320))
+            self.frame_modal.SetSize((420, 320))
         installers = self.kdk_data_latest[::-1] if show_full is False else self.kdk_data_full[::-1]
         if installers:
+            import re
             locale.setlocale(locale.LC_TIME, '')
             logging.info(f"Available installers on Github ({'All entries' if show_full else 'Latest only'}):")
+            xnu_name={
+                "26":"Tahoe Beta",
+                "15":"Sequoia",
+                "14":"Sonoma",
+                "13":"Ventura",
+            }
             for item in installers:
                 logging.info(f"- {item['name']} (macOS {item['version']} - {item['build']}):\n   - Link: {item['url']}\n")
-                index = self.list.InsertItem(self.list.GetItemCount(), f"{item['name']}")
+                result = re.search(r'^\d+', item['version'])
+                index = self.list.InsertItem(self.list.GetItemCount(), f"macOS {xnu_name[result.group()]}")
                 self.list.SetItemImage(index, 0)
                 self.list.SetItem(index, 1, f"{item['version']}")
                 self.list.SetItem(index, 2, f"{item['build']}")
@@ -255,7 +263,7 @@ class MetallibDownloadFrame(wx.Frame):
             file_name = selected_installer['name']+".pkg"
             self.frame_modal.Close()
             download_obj = network_handler.DownloadObject(selected_installer['url'], save_path+"/"+file_name)
-            # 弹出下载进度窗口
+          
             gui_download.DownloadFrame(
                 self,
                 title=self.title,
@@ -278,10 +286,7 @@ class MetallibDownloadFrame(wx.Frame):
         self.parent.Close()
 
     def on_return_to_main_menu(self, event: wx.Event = None) -> None:
-        """
-        返回主菜单
-        用法：点击“返回”按钮或流程结束后自动返回主菜单
-        """
+       
         if self.frame_modal:
             self.frame_modal.Hide()
         main_menu_frame = gui_main_menu.MainFrame(

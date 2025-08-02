@@ -137,26 +137,34 @@ class KDKDownloadFrame(wx.Frame):
         self.os_build_tahoe=self.detect_os_build(False)
         bundles = [wx.BitmapBundle.FromBitmaps(self.icons)]
         self.frame_modal.Destroy()
-        self.frame_modal = wx.Dialog(self, title="Choose KDK Version", size=(640, 580))
+        self.frame_modal = wx.Dialog(self, title="Choose KDK Version", size=(570, 580))
         title_label = wx.StaticText(self.frame_modal, label="Choose KDKs", pos=(-1,-1))
         title_label.SetFont(gui_support.font_factory(19, wx.FONTWEIGHT_BOLD))
         id = wx.NewIdRef()
         self.list = wx.ListCtrl(self.frame_modal, id, style=wx.LC_REPORT | wx.LC_SINGLE_SEL | wx.LC_NO_HEADER | wx.BORDER_SUNKEN)
         self.list.SetSmallImages(bundles)
-        self.list.InsertColumn(0, "name",        width=300)
+        self.list.InsertColumn(0, "name",        width=160)
         self.list.InsertColumn(1, "version",      width=50)
         self.list.InsertColumn(2, "build",        width=75)
         self.list.InsertColumn(3, "size",         width=85)
         self.list.InsertColumn(4, "seen", width=105)
         if show_full is False:
-            self.frame_modal.SetSize((640, 400))
+            self.frame_modal.SetSize((500, 400))
         installers = self.kdk_data_latest[::-1] if show_full is False else self.kdk_data_full[::-1]
         if installers:
             locale.setlocale(locale.LC_TIME, '')
             logging.info(f"Available installers on Dortania ({'All entries' if show_full else 'Latest only'}):")
+            xnu_name={
+                "26":"Tahoe Beta",
+                "15":"Sequoia",
+                "14":"Sonoma",
+                "13":"Ventura",
+            }
+            import re
             for item in installers:
                 logging.info(f"- {item['name']} (macOS {item['version']} - {item['build']}):\n  - Size: {self.convert_size(item['fileSize'])}\n  - Link: {item['url']}\n")
-                index = self.list.InsertItem(self.list.GetItemCount(), f"{item['name']}")
+                version = re.search(r'^\d+', item['version'])
+                index = self.list.InsertItem(self.list.GetItemCount(), f"macOS {xnu_name[version.group()]}")
                 self.list.SetItemImage(index, 0)
                 self.list.SetItem(index, 1, f"{item['version']}")
                 self.list.SetItem(index, 2, f"{item['build']}")

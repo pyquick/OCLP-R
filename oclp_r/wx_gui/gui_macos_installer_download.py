@@ -393,7 +393,6 @@ class macOSInstallerDownloadFrame(wx.Frame):
             mosizer.Add(self.copy_button, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
             mosizer.Add(self.select_button, 0, wx.ALIGN_CENTRE | wx.ALL, 5)
             sizer.Add(mosizer, 0, wx.ALIGN_CENTRE | wx.ALL, 0)
-            sizer.AddSpacer(8)
         sizer.Add(checkboxsizer, 0, wx.ALIGN_CENTRE | wx.ALL, 15)
         sizer.Add(return_button, 0, wx.ALIGN_CENTRE | wx.BOTTOM, 15)
 

@@ -2,7 +2,7 @@
 
 
 """
-voodoo_audio.py: Modern Audio patch set for macOS 26(VoodooHDA)
+voodoo_audio.py: Modern Audio patch set for macOS 12+26(VoodooHDA)
 """
 from ..base import BaseHardware, HardwareVariant
 from ...base import PatchType
@@ -42,30 +42,53 @@ class VoodooAudio(BaseHardware):
         """
         Patches for Modern Audio
         """
-        return {
-            "Voodoo Audio": {
-                PatchType.REMOVE_SYSTEM_VOLUME: {
-                    "/Library/PreferencePanes":{
-                        "VoodooHDA.prefPane",
+        if self._xnu_major >= os_data.tahoe and self._os_build != "25A5279m":
+            return {
+                "Voodoo Audio": {
+                    PatchType.REMOVE_SYSTEM_VOLUME: {
+                        "/Library/PreferencePanes":{
+                            "VoodooHDA.prefPane",
+                        },
+                        "/Library/Extensions":{
+                            "VoodooHDA.kext",
+                        },
+                        "/System/Library/Extensions": [
+                            "AppleHDA.kext" 
+                        ],
                     },
-                    "/Library/Extensions":{
-                        "VoodooHDA.kext",
+                    PatchType.MERGE_SYSTEM_VOLUME: {
+                        "/System/Library/Extensions": {
+                            "VoodooHDA.kext":"Voodoo",
+                        },
+                        "/System/Library/PreferencePanes":{
+                            "VoodooHDA.prefPane":"Voodoo",
+                        },
                     },
-                    "/System/Library/Extensions": [
-                        "AppleHDA.kext" if self._xnu_major >= os_data.tahoe and self._os_build != "25A5279m"  else "",
-                    ],
                 },
-                PatchType.MERGE_SYSTEM_VOLUME: {
-                    "/System/Library/Extensions": {
-                        "VoodooHDA.kext":"Voodoo",
-                        **({ "AppleHDADisabler.kext": "Voodoo" } if self._xnu_major <= os_data.sequoia else {}),
+            }
+        else:
+            return {
+                "Voodoo Audio": {
+                    PatchType.REMOVE_SYSTEM_VOLUME: {
+                        "/Library/PreferencePanes":{
+                            "VoodooHDA.prefPane",
+                        },
+                        "/Library/Extensions":{
+                            "VoodooHDA.kext",
+                        },
                     },
-                    "/System/Library/PreferencePanes":{
-                        "VoodooHDA.prefPane":"Voodoo",
+                    PatchType.MERGE_SYSTEM_VOLUME: {
+                        "/System/Library/Extensions": {
+                            "VoodooHDA.kext":"Voodoo",
+                            "AppleHDADisabler.kext": "Voodoo" ,
+                        },
+                        "/System/Library/PreferencePanes":{
+                            "VoodooHDA.prefPane":"Voodoo",
+                        },
                     },
                 },
-            },
-        }
+            }
+
     def patches(self) -> dict:
         """
         Patches for voodoo audio

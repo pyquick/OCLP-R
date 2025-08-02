@@ -159,10 +159,10 @@ class MainFrame(wx.Frame):
                 if button_name == "Post-Install Root Patch":
                     icon.SetPosition((-1, button_y + 7))
                 if button_name == "Create macOS Installer":
-                    icon.SetPosition((button_x - 5, button_y + 3))
-                if button_name == "Support":
-                    # icon_mac.SetSize((80, 80))
                     icon.SetPosition((button_x - 7, button_y + 3))
+                    icon.SetSize((60,60))
+                if button_name == "Support":
+                    icon.SetPosition((button_x - 3, button_y + 3))
                 if button_name == "Build and Install OpenCore":
                     icon.SetSize((70, 70))
             if button_name == "⚙️ Settings":
