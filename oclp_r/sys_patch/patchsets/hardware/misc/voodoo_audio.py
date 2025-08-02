@@ -53,15 +53,15 @@ class VoodooAudio(BaseHardware):
                             "VoodooHDA.kext",
                         },
                         "/System/Library/Extensions": [
-                            "AppleHDA.kext" 
+                            "AppleHDA.kext",
                         ],
                     },
                     PatchType.MERGE_SYSTEM_VOLUME: {
                         "/System/Library/Extensions": {
-                            "VoodooHDA.kext":"Voodoo",
+                            "VoodooHDA.kext":"11.3",
                         },
                         "/System/Library/PreferencePanes":{
-                            "VoodooHDA.prefPane":"Voodoo",
+                            "VoodooHDA.prefPane":"11.3",
                         },
                     },
                 },
@@ -79,11 +79,11 @@ class VoodooAudio(BaseHardware):
                     },
                     PatchType.MERGE_SYSTEM_VOLUME: {
                         "/System/Library/Extensions": {
-                            "VoodooHDA.kext":"Voodoo",
-                            "AppleHDADisabler.kext": "Voodoo" ,
+                            "VoodooHDA.kext":"11.3",
+                            "AppleHDADisabler.kext": "11.3" ,
                         },
                         "/System/Library/PreferencePanes":{
-                            "VoodooHDA.prefPane":"Voodoo",
+                            "VoodooHDA.prefPane":"11.3",
                         },
                     },
                 },
