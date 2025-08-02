@@ -56,7 +56,7 @@ class VoodooAudio(BaseHardware):
                             "AppleHDA.kext",
                         ],
                     },
-                    PatchType.MERGE_SYSTEM_VOLUME: {
+                    PatchType.OVERWRITE_SYSTEM_VOLUME: {
                         "/System/Library/Extensions": {
                             "VoodooHDA.kext":"11.3",
                         },
@@ -77,7 +77,7 @@ class VoodooAudio(BaseHardware):
                             "VoodooHDA.kext",
                         },
                     },
-                    PatchType.MERGE_SYSTEM_VOLUME: {
+                    PatchType.OVERWRITE_SYSTEM_VOLUME: {
                         "/System/Library/Extensions": {
                             "VoodooHDA.kext":"11.3",
                             "AppleHDADisabler.kext": "11.3" ,
