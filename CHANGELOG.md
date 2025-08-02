@@ -1,5 +1,12 @@
 # OpenCore Legacy Patcher changelog
-
+## 2.4.1
+- Add macOS 26 constants
+- Allow macOS 26 Beta download
+- Add macOS 26 USB-Map-Tahoe.kext
+- Add macOS 15.5 apfs_aligned.efi to support FV on Tahoe
+- Adopt Liquid Glass-conformant app icon
+- Inject legacy USB map on USB 1.1 Macs
+- Enable Solarium on Nightly builds, adjust Liquid Glass icon
 ## 2.4.0
 - Reduce CPU usage on main UI thread
   - Thanks [goneng](https://github.com/goneng) for the implementation!

@@ -13,7 +13,7 @@ from .detections import device_probe
 class Constants:
     def __init__(self) -> None:
         # Patcher Versioning
-        self.patcher_version:                 str = "2.4.0"  # OCLP-R
+        self.patcher_version:                 str = "2.5.0"  # OCLP-R
         self.patcher_support_pkg_version:     str = "1.9.5"  # PatcherSupportPkg
         self.copyright_date:                  str = "Copyright © 2020-2025 Dortania and Pyquick"
         self.patcher_name:                    str = "OCLP-R"
@@ -321,6 +321,9 @@ class Constants:
     def demux_ssdt_path(self):
         return self.payload_path / Path("ACPI/SSDT-DGPU.aml")
 
+    @property
+    def sequoia_apfs_driver_path(self):
+        return self.payload_path / Path("Drivers/apfs_aligned.efi")
     # Drivers
     @property
     def nvme_driver_path(self):
@@ -684,11 +687,15 @@ class Constants:
     @property
     def map_kext_folder(self):
         return self.kexts_path / Path("USB-Map.kext")
-
+    @property
+    def map_kext_folder_tahoe(self):
+        return self.kexts_path / Path("USB-Map-Tahoe.kext")
     @property
     def map_contents_folder(self):
         return self.map_kext_folder / Path("Contents")
-
+    @property
+    def map_contents_folder_tahoe(self):
+        return self.map_kext_folder_tahoe / Path("Contents")
     @property
     def pp_kext_folder(self):
         return self.kexts_path / Path("CPUFriendDataProvider.kext")
@@ -795,6 +802,9 @@ class Constants:
         return self.icns_resource_path / Path("Sequoia.icns")
 
     @property
+    def icon_path_macos_tahoe(self):
+        return self.icns_resource_path / Path("Tahoe.icns")
+    @property
     def gui_path(self):
         return self.payload_path / Path("Icon/Resources.zip")
 
@@ -828,6 +838,7 @@ class Constants:
             str(self.icon_path_macos_ventura),
             str(self.icon_path_macos_sonoma),
             str(self.icon_path_macos_sequoia),
+            str(self.icon_path_macos_tahoe),
         ]
 
     sbm_values = [

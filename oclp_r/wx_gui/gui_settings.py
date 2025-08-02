@@ -1362,7 +1362,8 @@ Hardware Information:
             global_constants=self.constants,
             screen_location=self.parent.GetPosition(),
             url=f"https://nightly.link/pyquick/OCLP-R/workflows/build-app-wxpython/{branch}/OCLP-R.pkg.zip",
-            version_label="(Nightly)"
+            #version_label="(Nightly)"
+            version_label=""
         )
 
 
