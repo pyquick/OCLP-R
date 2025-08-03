@@ -48,6 +48,7 @@ from .hardware.misc import (
     usb11,
     cpu_missing_avx,
     voodoo_audio,
+    whatevergreen,
 )
 
 from ... import constants
@@ -129,7 +130,7 @@ class HardwarePatchsetDetection:
 
             legacy_wireless.LegacyWireless,
             modern_wireless.ModernWireless,
-
+            whatevergreen.WEG,
             legacy_audio.LegacyAudio,
             modern_audio.ModernAudio,
             voodoo_audio.VoodooAudio,

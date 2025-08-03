@@ -28,7 +28,7 @@ jobs:
           rm -rf Univ*
           rm -rf *pay*.dmg
           /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install -r requirements.txt
-          /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-e5da014ca0ddb8a20bf7896063b0b39e17e460ec/Universal-Binaries.dmg"
+          /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-77e7fac96b6a5f8ba8a6829933b466159e21be7c/Universal-Binaries.dmg"
       
       - name: Force Universal2 charset for Python
         run: |
@@ -59,7 +59,7 @@ jobs:
 
       - name: Create Pre-Release on Push
         if: github.event_name == 'push'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: push-${{ github.sha }}
           name: 3.0.0 Tahoe Test Version
@@ -69,30 +69,3 @@ jobs:
             ./dist/AutoPkg-Assets.pkg
             ./dist/OCLP-R.pkg
             ./dist/OCLP-R-Uninstaller.pkg
-
-      - name: Upload AutoPkg Package to Release
-        if: github.event_name == 'release'
-        uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/AutoPkg-Assets.pkg
-          tag: ${{ github.ref }}
-          file_glob: true
-
-      - name: Upload Installation Package to Release
-        if: github.event_name == 'release'
-        uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/OCLP-R.pkg
-          tag: ${{ github.ref }}
-          file_glob: true
-
-      - name: Upload Uninstaller Package to Release
-        if: github.event_name == 'release'
-        uses: svenstaro/upload-release-action@e74ff71f7d8a4c4745b560a485cc5fdb9b5b999d
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/OCLP-R-Uninstaller.pkg
-          tag: ${{ github.ref }}
-          file_glob: true

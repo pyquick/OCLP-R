@@ -191,7 +191,6 @@ class PatchSysVolume:
 
         self._clean_skylight_plugins()
         self._delete_nonmetal_enforcement()
-        self._clean_voodoo_perfer()
         kernelcache.KernelCacheSupport(
             mount_location_data=self.mount_location_data,
             detected_os=self.constants.detected_os,
@@ -302,20 +301,6 @@ class PatchSysVolume:
         else:
             logging.info("- Creating SkylightPlugins folder")
             subprocess_wrapper.run_as_root_and_verify(["/bin/mkdir", "-p", f"{self.mount_application_support}/SkyLightPlugins/"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    def _clean_voodoo_perfer(self)->None:
-        """
-        Clean VoodooHDA.kext 's PerforencePanes
-        """
-        import os
-        if os.path.exists("/Library/Extensions/VoodooHDA.kext"):
-            logging.info("- Found VoodooHDA.kext, removing old kexts")
-            subprocess_wrapper.run_as_root_and_verify(["/bin/rm","-Rf","/Library/Extensions/VoodooHDA.kext"])
-        if os.path.exists("/Library/PreferencePanes/VoodooHDA.prefPane"):
-            logging.info("- Found VoodooHDA.prefPane, removing prefPane")
-            subprocess_wrapper.run_as_root_and_verify(["/bin/rm","-Rf","/Library/PreferencePanes/VoodooHDA.prefPane"])
-        else:
-            logging.info("- VoodooHDA.prefPane is not found, skipping")
-
     def _delete_nonmetal_enforcement(self) -> None:
         """
         Remove defaults related to forced OpenGL rendering

@@ -91,7 +91,22 @@ class LegacyUSBHost(BaseHardware):
                 },
             },
         }
+    def _usb_webcam_patches(self) -> dict:
+        """
+        Patches for USB 1.1 Webcam
+        """
+        if self._xnu_major < os_data.sequoia.value:
+            return {}
 
+        return {
+            "Legacy USB Host Webcam": {
+                PatchType.MERGE_SYSTEM_VOLUME: {
+                    "/System/Library/Frameworks": {
+                        "IOUSBHost.framework": "14.6.1",
+                    },
+                },
+            },
+        }
 
     def patches(self) -> dict:
         """
@@ -99,5 +114,7 @@ class LegacyUSBHost(BaseHardware):
         """
         if self.native_os() is True:
             return {}
-
-        return self._legacy_usb_patches()
+        return {
+            **self._legacy_usb_patches(),
+            **self._usb_webcam_patches(),
+        }
