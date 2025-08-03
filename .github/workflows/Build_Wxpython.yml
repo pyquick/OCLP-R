@@ -68,9 +68,9 @@ jobs:
 
       - name: Create Pre-Release on Push
         if: github.event_name == 'push'
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
-          #tag_name: push-#{{ github.sha
+          tag_name: 2.5.0
           name: 2.5.0
           body: ${{ github.event.head_commit.message }}
           prerelease: false
