@@ -874,9 +874,11 @@ class SettingsFrame(wx.Frame):
                         "   - VoodooHDA: VoodooHDA patch on Tahoe.\nAs a replacement for AppleHDA + AppleALC",
                     ],
                 },
+                
                 "wrap_around 1": {
                     "type": "wrap_around",
                 },
+                
                 "Disable Reporting": {
                     "type": "checkbox",
                     "value": global_settings.GlobalEnviromentSettings().read_property("DisableCrashAndAnalyticsReporting"),
@@ -899,7 +901,35 @@ class SettingsFrame(wx.Frame):
                     ],
                     "override_function": self._update_global_settings,
                 },
-                
+                "Github Proxy": {
+                    "type": "choice",
+                    "choices": [
+                        "Default",
+                        "SimpleHac",
+                        "gh-proxy",
+                        "ghfast",
+                    ],
+                    "value": self.constants.github_proxy_link,
+                    "variable": "github_proxy_link",
+                    "constants_variable": "github_proxy_link",
+                    "description": [
+                        "Default : https://dortania.github.io/",
+                        "SimpleHac : https://gitapi.simplehac.top/",
+                        "gh-proxy : https://gh-proxy.com/",
+                        "ghfast : https://ghfast.top/",
+                    ],
+                },
+                "wrap_around 1": {
+                    "type": "wrap_around",
+                },
+                "Misc": {
+                    "type": "title",
+                },
+                "Choose Download Path": {
+                    "type": "populate",
+                    "function": self._change_download_path,
+                    "args": wx.Frame,
+                },
             },
             "Developer": {
                 "Validation": {
@@ -1059,8 +1089,49 @@ class SettingsFrame(wx.Frame):
 
             index += 1
             self.sip_checkbox.Bind(wx.EVT_CHECKBOX, self.on_sip_value)
-
-
+    def on_text_change(self, event:wx.Event):
+        self.constants.user_download_file = event.GetEventObject().GetValue()
+        logging.info(f"user_download_file:{self.constants.user_download_file}")
+    def _change_download_path(self,panel:wx.Frame) -> None:
+        def is_dir_writable(dirpath):
+            import os
+            return os.access(dirpath, os.W_OK | os.X_OK)
+        if not is_dir_writable(self.constants.user_download_file):
+            import getpass
+            self.constants.user_download_file=f"/Users/{getpass.getuser()}/Downloads"
+        title: wx.StaticText = None
+        for child in panel.GetChildren():
+            if child.GetLabel() == "Misc":
+                title = child
+                break
+        self.custom_download_label = wx.StaticText(panel, label="Choose Download Path", pos=(title.GetPosition()[0] - 150, title.GetPosition()[1] + 30))
+        self.custom_download_label.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_BOLD))
+        self.custom_download_textctrl=wx.TextCtrl(panel,pos=(self.custom_download_label.GetPosition()[0] - 77, self.custom_download_label.GetPosition()[1] + 20), size=(300, 25))
+        self.custom_download_textctrl.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_NORMAL))
+        self.custom_download_textctrl.SetValue(self.constants.user_download_file)
+        self.custom_download_textctrl.Bind(wx.EVT_TEXT,self.on_text_change)
+        self.choose_path_button = wx.Button(panel, label="Choose", pos=(title.GetPosition()[0] +100, self.custom_download_label.GetPosition()[1]+20), size=(100, 25))
+        self.choose_path_button.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_NORMAL))
+        self.choose_path_button.Bind(wx.EVT_BUTTON, self.on_choose_directory)
+    def on_choose_directory(self, event):
+        with wx.DirDialog(self.frame_modal, "Choose Save Path", 
+                        style=wx.DD_DEFAULT_STYLE | wx.DD_DIR_MUST_EXIST) as dirDialog:
+            if dirDialog.ShowModal() == wx.ID_OK:
+                backup=self.constants.user_download_file
+                self.constants.user_download_file = dirDialog.GetPath()
+                def is_dir_writable(dirpath):
+                    import os
+                    return os.access(dirpath, os.W_OK | os.X_OK)
+                if not is_dir_writable(self.constants.user_download_file):
+                    wx.MessageBox(
+                        "Cannot write to the selected directory.", 
+                        "Read-only directory", 
+                        wx.OK | wx.ICON_WARNING
+                    )  
+                    self.constants.user_download_file=backup
+                else:
+                    logging.info(f"Choose Path: {self.constants.user_download_file}")     
+                    self.custom_download_textctrl.SetValue(self.constants.user_download_file)
     def _populate_serial_spoofing_settings(self, panel: wx.Frame) -> None:
         title: wx.StaticText = None
         for child in panel.GetChildren():

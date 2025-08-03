@@ -212,13 +212,13 @@ class SysPatchDisplayFrame(wx.Frame):
         start_button.Centre(wx.HORIZONTAL)
 
         # Button: Revert Root Patches
-        revert_button = wx.Button(frame, label="Revert Root Patches", pos=(10, start_button.GetPosition().y + start_button.GetSize().height - 5), size=(170, 30))
+        revert_button = wx.Button(frame, label="Revert Root Patches", pos=(10, start_button.GetPosition().y + start_button.GetSize().height +5), size=(170, 30))
         revert_button.Bind(wx.EVT_BUTTON, lambda event: self.on_revert_root_patching(patches))
         revert_button.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_NORMAL))
         revert_button.Centre(wx.HORIZONTAL)
 
         # Button: Return to Main Menu
-        return_button = wx.Button(frame, label="Return to Main Menu", pos=(10, revert_button.GetPosition().y + revert_button.GetSize().height), size=(150, 30))
+        return_button = wx.Button(frame, label="Return to Main Menu", pos=(10, revert_button.GetPosition().y + revert_button.GetSize().height+10), size=(150, 30))
         return_button.Bind(wx.EVT_BUTTON, self.on_return_dismiss if self.init_with_parent else self.on_return_to_main_menu)
         return_button.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_NORMAL))
         return_button.Centre(wx.HORIZONTAL)

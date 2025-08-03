@@ -18,6 +18,7 @@ from ..support import (
     network_handler,
 )
 KDK_API_LINK_ORIGIN:str  = "https://dortania.github.io/KdkSupportPkg/manifest.json"
+KDK_API_LINK_PROXY:str  = "https://oclpapi.simplehac.cn/KdkSupportPkg/manifest.json"
 class KDKDownloadFrame(wx.Frame):
     def __init__(self, parent: wx.Frame, title: str, global_constants: constants.Constants,screen_location: tuple = None):
         logging.info("Initializing KDK Download Frame")
@@ -57,6 +58,8 @@ class KDKDownloadFrame(wx.Frame):
         self.Show()
         def _fetch_installers():
             try:
+                if self.constants.github_proxy_link!="Default":
+                    KDK_API_LINK:str=KDK_API_LINK_PROXY
                 KDK_API_LINK: str = KDK_API_LINK_ORIGIN
                 response = requests.get(KDK_API_LINK)
                 self.kdk_data = response.json()
@@ -67,6 +70,12 @@ class KDKDownloadFrame(wx.Frame):
                 for i in range(len(self.kdk_data)):
                     self.kdk_data[i].pop("kernel_versions")
                     self.kdk_data[i]['seen']=((self.kdk_data[i]['seen']).split("T"))[0]
+                    if self.constants.github_proxy_link!="SimpleHac" and self.constants.github_proxy_link!="Default":
+                        self.kdk_data[i]['url']=self.kdk_data[i]['url'].replace("https://gitapi.simplehac.top/","")
+                    if self.constants.github_proxy_link=="gh-proxy":
+                        self.kdk_data[i]['url']="https://gh-proxy.com/"+self.kdk_data[i]['url']
+                    if self.constants.github_proxy_link=="ghfast":
+                        self.kdk_data[i]['url']="https://ghfast.top/"+self.kdk_data[i]['url']
                 for i in range(len(self.kdk_data)):
                     data=self.kdk_data[i]["build"][:2]
                     data2=self.kdk_data[i]["build"]
@@ -137,7 +146,7 @@ class KDKDownloadFrame(wx.Frame):
         self.os_build_tahoe=self.detect_os_build(False)
         bundles = [wx.BitmapBundle.FromBitmaps(self.icons)]
         self.frame_modal.Destroy()
-        self.frame_modal = wx.Dialog(self, title="Choose KDK Version", size=(570, 580))
+        self.frame_modal = wx.Dialog(self, title="Choose KDK Version", size=(500, 580))
         title_label = wx.StaticText(self.frame_modal, label="Choose KDKs", pos=(-1,-1))
         title_label.SetFont(gui_support.font_factory(19, wx.FONTWEIGHT_BOLD))
         id = wx.NewIdRef()
@@ -248,34 +257,19 @@ class KDKDownloadFrame(wx.Frame):
                 selected_installer=self.backup_item
             else:
                 selected_installer = installers[selected_item]
+            def is_dir_writable(dirpath):
+                    import os
+                    return os.access(dirpath, os.W_OK | os.X_OK)
+            if not is_dir_writable(self.constants.user_download_file):
+                import getpass
+                self.constants.user_download_file=f"/Users/{getpass.getuser()}/Downloads"
             self.validate_ins=selected_installer
             self.backup_item=selected_installer
-            while True:
-                dir_dialog = wx.DirDialog(self, "Choose Save Path", "", wx.DD_DIR_MUST_EXIST)
-                if dir_dialog.ShowModal() == wx.ID_OK:
-                    save_path = dir_dialog.GetPath()
-                    def is_dir_writable(dirpath):
-                        import os
-                        return os.access(dirpath, os.W_OK | os.X_OK)
-                    if not is_dir_writable(save_path):
-                        wx.MessageBox(
-                            "Cannot write to the selected directory.", 
-                            "Read-only directory", 
-                            wx.OK | wx.ICON_WARNING
-                        )  
-                        dir_dialog.Destroy()
-                    else:
-                        logging.info(f"Choose Path: {save_path}")
-                        dir_dialog.Destroy()
-                        break
-                else:
-                    self.on_return_to_main_menu()
-                    return
             file_name = selected_installer['name']+".dmg"
             self.frame_modal.Close()
-            self.path_validate=save_path+"/"+file_name
+            self.path_validate=self.constants.user_download_file+"/"+file_name
             size=selected_installer['fileSize']
-            download_obj = network_handler.DownloadObject(selected_installer['url'], save_path+"/"+file_name,self.convert_size(size))
+            download_obj = network_handler.DownloadObject(selected_installer['url'], self.constants.user_download_file+"/"+file_name,self.convert_size(size))
             gui_download.DownloadFrame(
                 self,
                 title=self.title,
@@ -286,7 +280,7 @@ class KDKDownloadFrame(wx.Frame):
             )
             if download_obj.download_complete is False:
                 import os
-                os.remove(save_path+"/"+file_name)
+                os.remove(self.constants.user_download_file+"/"+file_name)
                 self.on_return_to_main_menu()
                 return
             self.on_return_to_main_menu()

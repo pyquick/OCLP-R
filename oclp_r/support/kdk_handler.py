@@ -24,10 +24,9 @@ from . import (
 
 KDK_INSTALL_PATH: str  = "/Library/Developer/KDKs"
 KDK_INFO_PLIST:   str  = "KDKInfo.plist"
-KDK_API_LINK:     str  = "https://dortania.github.io/KdkSupportPkg/manifest.json"
-
+KDK_API_LINK_ORG:     str  = "https://dortania.github.io/KdkSupportPkg/manifest.json"
+KDK_API_LINK_PROXY:str  = "https://oclpapi.simplehac.cn/KdkSupportPkg/manifest.json"
 KDK_ASSET_LIST:   list = None
-
 
 class KernelDebugKitObject:
     """
@@ -109,6 +108,10 @@ class KernelDebugKitObject:
             return KDK_ASSET_LIST
 
         try:
+            if self.constants.github_proxy_link=="Default":
+                KDK_API_LINK=KDK_API_LINK_ORG
+            else:
+                KDK_API_LINK=KDK_API_LINK_PROXY
             results = network_handler.NetworkUtilities().get(
                 KDK_API_LINK,
                 headers={
@@ -193,6 +196,12 @@ class KernelDebugKitObject:
         for kdk in remote_kdk_version:
             if (kdk["build"] != host_build):
                 continue
+            if self.constants.github_proxy_link!="SimpleHac" and self.constants.github_proxy_link!="Default":
+                kdk['url']=kdk['url'].replace("https://gitapi.simplehac.top/","")
+            if self.constants.github_proxy_link=="gh-proxy":
+                kdk['url']="https://gh-proxy.com/"+kdk['url']
+            if self.constants.github_proxy_link=="ghfast":
+                kdk['url']="https://ghfast.top/"+kdk['url']
             self.kdk_url = kdk["url"]
             self.kdk_url_build = kdk["build"]
             self.kdk_url_version = kdk["version"]

@@ -17,8 +17,8 @@ from ..datasets import os_data
 
 
 METALLIB_INSTALL_PATH: str  = "/Library/Application Support/Pyquick/MetallibSupportPkg"
-METALLIB_API_LINK:     str  = "https://dortania.github.io/MetallibSupportPkg/manifest.json"
-
+METALLIB_API_LINK_ORG:     str  = "https://dortania.github.io/MetallibSupportPkg/manifest.json"
+METALLIB_API_LINK_PROXY:str ="https://oclpapi.simplehac.cn/MetallibSupportPkg/manifest.json"
 METALLIB_ASSET_LIST:   list = None
 
 
@@ -70,6 +70,10 @@ class MetalLibraryObject:
             return METALLIB_ASSET_LIST
 
         try:
+            if self.constants.github_proxy_link!="Default":
+                METALLIB_API_LINK=METALLIB_API_LINK_PROXY
+            else:
+                METALLIB_API_LINK=METALLIB_API_LINK_ORG
             results = network_handler.NetworkUtilities().get(
                 METALLIB_API_LINK,
                 headers={
@@ -145,6 +149,12 @@ class MetalLibraryObject:
         for metallib in remote_metallib_version:
             if (metallib["build"] != self.host_build):
                 continue
+            if self.constants.github_proxy_link!="SimpleHac" and self.constants.github_proxy_link!="Default":
+                metallib['url']=metallib['url'].replace("https://gitapi.simplehac.top/","")
+            if self.constants.github_proxy_link=="gh-proxy":
+                metallib['url']="https://gh-proxy.com/"+metallib['url']
+            if self.constants.github_proxy_link=="ghfast":
+                metallib['url']="https://ghfast.top/"+metallib['url']
             self.metallib_url = metallib["url"]
             self.metallib_url_build = metallib["build"]
             self.metallib_url_version = metallib["version"]

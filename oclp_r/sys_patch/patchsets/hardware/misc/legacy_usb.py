@@ -56,50 +56,39 @@ class LegacyUSBHost(BaseHardware):
             "Legacy USB": {
                 PatchType.OVERWRITE_SYSTEM_VOLUME: {
                     "/System/Library/Extensions": {
-                        "AppleUSBACM.kext": "15.5",  
-                        "AppleUSBAudio.kext": "15.5",  
-                        "AppleUSBCDC.kext": "15.5",  
-                        "AppleUSBCommon.kext": "15.5",  
-                        "AppleUSBDeviceMux.kext": "15.5",  
-                        "AppleUSBDeviceNCM.kext": "15.5",  
-                        "AppleUSBDisplays.kext": "15.5",  
-                        "AppleUSBDMM.kext": "15.5",  
-                        "AppleUSBECM.kext": "15.5",  
-                        "AppleUSBEEM.kext": "15.5",  
-                        "AppleUSBEthernet.kext": "15.5",  
-                        "AppleUSBEthernetHost.kext": "15.5",  
-                        "AppleUSBHostS5L8930X.kext": "15.5",  
-                        "AppleUSBHostS5L8960X.kext": "15.5",  
-                        "AppleUSBHostT7000.kext": "15.5",  
-                        "AppleUSBHostT8002.kext": "15.5",  
-                        "AppleUSBHostT8011.kext": "15.5",  
-                        "AppleUSBHostT8020.kext": "15.5",  
-                        "AppleUSBHSIC.kext": "15.5",  
-                        "AppleUSBiBridge.kext": "15.5",  
-                        "AppleUSBLightningAdapter.kext": "15.5",  
-                        "AppleUSBMike.kext": "15.5",  
-                        "AppleUSBNCM.kext": "15.5",  
-                        "AppleUSBNetworking.kext": "15.5",  
-                        "AppleUSBRealtek8153Patcher.kext": "15.5",  
-                        "AppleUSBSerial.kext": "15.5",  
-                        "AppleUSBWCM.kext": "15.5",  
-                        "IOUSBDeviceFamily.kext": "15.5",  
-                        "IOUSBFamily.kext": "15.5",  
-                        "IOUSBHostFamily.kext": "15.5",  
-                        "IOUSBMassStorageDriver.kext": "15.5",
+                        "AppleUSBACM.kext": "14.7.6",  
+                        "AppleUSBAudio.kext": "14.7.6",  
+                        "AppleUSBCDC.kext": "14.7.6",  
+                        "AppleUSBCommon.kext": "14.7.6",  
+                        "AppleUSBDeviceMux.kext": "14.7.6",  
+                        "AppleUSBDeviceNCM.kext": "14.7.6",  
+                        "AppleUSBDisplays.kext": "14.7.6",  
+                        "AppleUSBDMM.kext": "14.7.6",  
+                        "AppleUSBECM.kext": "14.7.6",  
+                        "AppleUSBEEM.kext": "14.7.6",  
+                        "AppleUSBEthernet.kext": "14.7.6",  
+                        "AppleUSBEthernetHost.kext": "14.7.6",  
+                        "AppleUSBHostS5L8930X.kext": "14.7.6",  
+                        "AppleUSBHostS5L8960X.kext": "14.7.6",  
+                        "AppleUSBHostT7000.kext": "14.7.6",  
+                        "AppleUSBHostT8002.kext": "14.7.6",  
+                        "AppleUSBHostT8011.kext": "14.7.6",  
+                        "AppleUSBHostT8020.kext": "14.7.6",  
+                        "AppleUSBHSIC.kext": "14.7.6",  
+                        "AppleUSBiBridge.kext": "14.7.6",  
+                        "AppleUSBLightningAdapter.kext": "14.7.6",  
+                        "AppleUSBMike.kext": "14.7.6",  
+                        "AppleUSBNCM.kext": "14.7.6",  
+                        "AppleUSBNetworking.kext": "14.7.6",  
+                        "AppleUSBRealtek8153Patcher.kext": "14.7.6",  
+                        "AppleUSBSerial.kext": "14.7.6",  
+                        "AppleUSBWCM.kext": "14.7.6",  
+                        "IOUSBDeviceFamily.kext": "14.7.6",  
+                        "IOUSBFamily.kext": "14.7.6",  
+                        "IOUSBHostFamily.kext": "14.7.6",  
+                        "IOUSBMassStorageDriver.kext": "14.7.6",
                     },
                 },
-            },
-        }
-    def _usb_webcam_patches(self) -> dict:
-        """
-        Patches for USB 1.1 Webcam
-        """
-        if self._xnu_major < os_data.sequoia.value:
-            return {}
-
-        return {
-            "Legacy USB Host Webcam": {
                 PatchType.MERGE_SYSTEM_VOLUME: {
                     "/System/Library/Frameworks": {
                         "IOUSBHost.framework": "14.6.1",
@@ -107,14 +96,15 @@ class LegacyUSBHost(BaseHardware):
                 },
             },
         }
-
+    
     def patches(self) -> dict:
         """
         Patches for modern audio
         """
         if self.native_os() is True:
             return {}
-        return {
-            **self._legacy_usb_patches(),
-            **self._usb_webcam_patches(),
-        }
+        return self._legacy_usb_patches()
+            
+        
+            
+        

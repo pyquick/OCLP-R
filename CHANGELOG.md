@@ -8,7 +8,9 @@
 - Adopt Liquid Glass-conformant app icon
 - Increment Binaries:
   - OpenCorePkg 1.0.5 - rolling (f03819e)
-  
+- Some UI Update
+- Change the download configuration area
+- In China, you can use Github Proxy
 ## 2.4.1
 
 - Add macOS 26 constants

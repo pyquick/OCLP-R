@@ -54,12 +54,12 @@ class HelpFrame(wx.Frame):
         }
 
         for button in buttons:
-            help_button = wx.Button(frame, label=button, pos=(-1, text_label.GetPosition()[1] + text_label.GetSize()[1] + (list(buttons.keys()).index(button) * 30)), size=(200, 30))
+            help_button = wx.Button(frame, label=button, pos=(-1, text_label.GetPosition()[1] + text_label.GetSize()[1] + (list(buttons.keys()).index(button) * 38)), size=(200, 30))
             help_button.Bind(wx.EVT_BUTTON, lambda event, temp=buttons[button]: webbrowser.open(temp))
             help_button.Centre(wx.HORIZONTAL)
 
         # Button: Return to Main Menu
-        return_button = wx.Button(frame, label="Return to Main Menu", pos=(-1, help_button.GetPosition()[1] + help_button.GetSize()[1]), size=(150, 30))
+        return_button = wx.Button(frame, label="Return to Main Menu", pos=(-1, help_button.GetPosition()[1] + help_button.GetSize()[1]+7), size=(150, 30))
         return_button.Bind(wx.EVT_BUTTON, lambda event: frame.Close())
         return_button.Centre(wx.HORIZONTAL)
 

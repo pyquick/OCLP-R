@@ -522,29 +522,15 @@ class macOSInstallerDownloadFrame(wx.Frame):
             logging.info(f"Selected macOS DMG {selected_installer['version']} ({selected_installer['build']})")
             if isinstance(item,dict):
                 item = installers['dmgFiles'][selected_item]
-            dir_dialog = wx.DirDialog(self, "Select Save Path", "", wx.DD_DIR_MUST_EXIST)
-            while True:
-                if dir_dialog.ShowModal() == wx.ID_OK:
-                    save_path = dir_dialog.GetPath()
-                    def is_dir_writable(dirpath):
-                        import os
-                        return os.access(dirpath, os.W_OK | os.X_OK)
-                    if not is_dir_writable(save_path):
-                        wx.MessageBox(
-                            "Cannot write to the selected directory. Please select another directory.", 
-                            "Read-only System", 
-                            wx.OK | wx.ICON_WARNING
-                        )  
-                        continue
-                    logging.info(f"Selected Path: {save_path}")
-                    dir_dialog.Destroy()
-                    break
-                else:
-                    self.on_return_to_main_menu()
-                    return
             self.frame_modal.Close()
+            def is_dir_writable(dirpath):
+                    import os
+                    return os.access(dirpath, os.W_OK | os.X_OK)
+            if not is_dir_writable(self.constants.user_download_file):
+                import getpass
+                self.constants.user_download_file=f"/Users/{getpass.getuser()}/Downloads"
             file_name = f"/Install+{item.get('title', '')}+{item.get('version', '')}+{item.get('build', '')}+with+OC&FirPE+SimpleHac.dmg"
-            download_obj = network_handler.DownloadObject(item.get('downloadUrl', ''), save_path+file_name, item.get('size', ''))
+            download_obj = network_handler.DownloadObject(item.get('downloadUrl', ''), self.constants.user_download_file+file_name, item.get('size', ''))
             gui_download.DownloadFrame(
                 self,
                 title="Download DMG",

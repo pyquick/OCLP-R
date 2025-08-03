@@ -9,7 +9,7 @@ from packaging import version
 from .datasets import os_data
 from .detections import device_probe
 
-
+import getpass
 class Constants:
     def __init__(self) -> None:
         # Patcher Versioning
@@ -19,13 +19,14 @@ class Constants:
         self.patcher_name:                    str = "OCLP-R"
         
         # URLs
+        self.github_proxy_link:               str = "Default"
         self.url_patcher_support_pkg:         str = "https://github.com/pyquick/PatcherSupportPkg/releases/download/"
         self.discord_link:                    str = "https://discord.gg/rqdPgH8xSN"
         self.guide_link:                      str = "https://dortania.github.io/OCLP-R/"
         self.repo_link:                       str = "https://github.com/pyquick/OCLP-R"
         self.installer_pkg_url:               str = f"{self.repo_link}/releases/download/{self.patcher_version}/AutoPkg-Assets.pkg"
         self.installer_pkg_url_nightly:       str = "http://nightly.link/pyquick/OCLP-R/workflows/build-app-wxpython/main/AutoPkg-Assets.pkg.zip"
-
+        self.user_download_file:              str = f"/Users/{getpass.getuser()}/Downloads"
         # OpenCore Versioning
         # https://github.com/acidanthera/OpenCorePkg
         self.opencore_version: str = "1.0.5"

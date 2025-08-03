@@ -17,6 +17,7 @@ from ..support import (
     network_handler,
 )
 METALLIB_API_LINK_ORIGIN:     str  = "https://dortania.github.io/MetallibSupportPkg/manifest.json"
+METALLIB_API_LINK_PROXY:     str  = "https://oclpapi.simplehac.cn/MetallibSupportPkg/manifest.json"
 class MetallibDownloadFrame(wx.Frame):
     def __init__(self, parent: wx.Frame, title: str, global_constants: constants.Constants,screen_location: tuple = None):
         logging.info("Initializing NewMetallibDownloadFrame")
@@ -55,6 +56,8 @@ class MetallibDownloadFrame(wx.Frame):
         self.Show()
         def _fetch_installers():
             try:
+                if self.constants.github_proxy_link!="Default":
+                    METALLIB_API_LINK:str=METALLIB_API_LINK_PROXY
                 METALLIB_API_LINK: str = METALLIB_API_LINK_ORIGIN
                 response = requests.get(METALLIB_API_LINK)
                 self.kdk_data = response.json()
@@ -65,6 +68,12 @@ class MetallibDownloadFrame(wx.Frame):
                 for i in range(len(self.kdk_data)):
                     data=self.kdk_data[i]["build"][:2]
                     data2=self.kdk_data[i]["build"]
+                    if self.constants.github_proxy_link!="SimpleHac" and self.constants.github_proxy_link!="Default":
+                        self.kdk_data[i]['url']=self.kdk_data[i]['url'].replace("https://gitapi.simplehac.top/","")
+                    if self.constants.github_proxy_link=="gh-proxy":
+                        self.kdk_data[i]['url']="https://gh-proxy.com/"+self.kdk_data[i]['url']
+                    if self.constants.github_proxy_link=="ghfast":
+                        self.kdk_data[i]['url']="https://ghfast.top/"+self.kdk_data[i]['url']
                     kdk_data_number.append(data)
                     kdk_data_build.append(data2)
                 for i in range(4):
@@ -135,7 +144,7 @@ class MetallibDownloadFrame(wx.Frame):
         self.os_build_tahoe=self.detect_os_build(False)
         bundles = [wx.BitmapBundle.FromBitmaps(self.icons)]
         self.frame_modal.Destroy()
-        self.frame_modal = wx.Dialog(self, title="Choose Metallib Version", size=(420, 580))
+        self.frame_modal = wx.Dialog(self, title="Choose Metallib Version", size=(414, 580))
         title_label = wx.StaticText(self.frame_modal, label="Choose Metallib", pos=(-1,-1))
         title_label.SetFont(gui_support.font_factory(19, wx.FONTWEIGHT_BOLD))
         id = wx.NewIdRef()
@@ -146,7 +155,7 @@ class MetallibDownloadFrame(wx.Frame):
         self.list.InsertColumn(2, "build",        width=75)
         self.list.InsertColumn(3, "seen", width=105)
         if show_full is False:
-            self.frame_modal.SetSize((420, 320))
+            self.frame_modal.SetSize((414, 320))
         installers = self.kdk_data_latest[::-1] if show_full is False else self.kdk_data_full[::-1]
         if installers:
             import re
@@ -226,7 +235,7 @@ class MetallibDownloadFrame(wx.Frame):
                 clipboard.Open()
             clipboard.SetData(wx.TextDataObject(installers[selected_item]['url']))
             clipboard.Close()
-            wx.MessageDialog(self.frame_modal, "", "", wx.OK | wx.ICON_INFORMATION).ShowModal()
+            wx.MessageDialog(self.frame_modal, "Download link copied to clipboard", "", wx.OK | wx.ICON_INFORMATION).ShowModal()
     def on_select_list(self, event):
         if self.list.GetSelectedItemCount() > 0:
             self.select_button.Enable()
@@ -238,32 +247,15 @@ class MetallibDownloadFrame(wx.Frame):
         selected_item = self.list.GetFirstSelected()
         if selected_item != -1:
             selected_installer = installers[selected_item]
-            while True:
-                dir_dialog = wx.DirDialog(self, "Select Save Path", "", wx.DD_DIR_MUST_EXIST)
-                if dir_dialog.ShowModal() == wx.ID_OK:
-                    save_path = dir_dialog.GetPath()
-                    def is_dir_writable(dirpath):
-                        import os
-                        return os.access(dirpath, os.W_OK | os.X_OK)
-                    if not is_dir_writable(save_path):
-                        wx.MessageBox(
-                            "Cannot write to the selected directory.", 
-                            "Read_only directory", 
-                            wx.OK | wx.ICON_WARNING
-                        )  
-                        dir_dialog.Destroy()
-                    else:
-                        logging.info(f"Selected Path: {save_path}")
-                        dir_dialog.Destroy()
-                        break
-                else:
-                    self.on_return_to_main_menu()
-                    return
-                
             file_name = selected_installer['name']+".pkg"
             self.frame_modal.Close()
-            download_obj = network_handler.DownloadObject(selected_installer['url'], save_path+"/"+file_name)
-          
+            def is_dir_writable(dirpath):
+                    import os
+                    return os.access(dirpath, os.W_OK | os.X_OK)
+            if not is_dir_writable(self.constants.user_download_file):
+                import getpass
+                self.constants.user_download_file=f"/Users/{getpass.getuser()}/Downloads"
+            download_obj = network_handler.DownloadObject(selected_installer['url'], self.constants.user_download_file+"/"+file_name)
             gui_download.DownloadFrame(
                 self,
                 title=self.title,
@@ -274,7 +266,7 @@ class MetallibDownloadFrame(wx.Frame):
             )
             if download_obj.download_complete is False:
                 import os
-                os.remove(save_path+"/"+file_name)
+                os.remove(self.constants.user_download_file+"/"+file_name)
                 self.on_return_to_main_menu()
                 return
             
