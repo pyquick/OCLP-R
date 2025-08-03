@@ -137,7 +137,7 @@ class GenerateApplication:
         This will enable the Solarium refresh when running on macOS 26
         Minor visual anomalies and padding issues exist, disable if not addressed before release
         """
-        _file = self._application_output / "Contents" / "MacOS" / "OpenCore-Patcher"
+        _file = self._application_output / "Contents" / "MacOS" / "OCLP-R"
 
         _find    = b'\x00\x01\x0C\x00'
         _replace = b'\x00\x00\x1A\x00'

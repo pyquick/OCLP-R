@@ -36,6 +36,7 @@ __pycache__/
 /Universal-Binaries.dmg
 /payloads/KDKInfo.plist
 /payloads/update.sh
-/payloads/OpenCore-Patcher.app
+/payloads/OCLP-R.app
 /.x86_64_venv
 *afdesign~lock~
+main.py

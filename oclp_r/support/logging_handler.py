@@ -47,7 +47,7 @@ class InitializeLoggingSupport:
 
         log_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S-%f")
 
-        self.log_filename: str  = f"OpenCore-Patcher_{self.constants.patcher_version}_{log_time}.log"
+        self.log_filename: str  = f"OCLP-R_{self.constants.patcher_version}_{log_time}.log"
         self.log_filepath: Path = None
 
         self.original_excepthook:        sys       = sys.excepthook
