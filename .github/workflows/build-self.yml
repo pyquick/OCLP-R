@@ -23,14 +23,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
       - name: Install Dependencies
         run: |
           rm -rf Univ*
           rm -rf *pay*.dmg
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install -r requirements.txt
           /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-d6258d99afe263ce38567fc7628240f119729274/Universal-Binaries.dmg"
-      
+      - name: Uninstall zstandard
+        run: |
+          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip uninstall -y zstandard
       - name: Force Universal2 charset for Python
         run: |
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip uninstall -y charset_normalizer
@@ -56,3 +57,6 @@ jobs:
         run: >
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 Build-Project.command
           --prepare-package
+      - name: Install zstandard
+        run: |
+          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install zstandard
