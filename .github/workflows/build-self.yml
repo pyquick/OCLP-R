@@ -26,32 +26,32 @@ jobs:
       - name: Create venv
         run: |
           rm -rf venv
-          python3.13 -m venv venv
+          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m venv venv
       - name: Install Dependencies
         run: |
           source venv/bin/activate
           rm -rf Univ*
           rm -rf *pay*.dmg
-          pip3.13 install -r requirements.txt
+          pip install -r requirements.txt
           /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-d6258d99afe263ce38567fc7628240f119729274/Universal-Binaries.dmg"
       - name: Force Universal2 charset for Python
         run: |
           source venv/bin/activate
-          pip3.13 uninstall -y charset_normalizer
-          pip3.13 download --platform macosx_10_13_universal2 --only-binary=:all: charset-normalizer
-          pip3.13 install charset_normalizer-*-macosx_10_13_universal2.whl
+          pip uninstall -y charset_normalizer
+          pip download --platform macosx_10_13_universal2 --only-binary=:all: charset-normalizer
+          pip install charset_normalizer-*-macosx_10_13_universal2.whl
 
       - name: Prepare Assets (--prepare-assets)
         run: |
           source venv/bin/activate
-          python3.13 Build-Project.command
+          python Build-Project.command
           --run-as-individual-steps
           --prepare-assets
       
       - name: Prepare Application (--prepare-application)
         run: |
           source venv/bin/activate
-          python3.13 Build-Project.command
+          python Build-Project.command
           --git-branch "${{ env.branch }}" --git-commit-url "${{ env.commiturl }}" --git-commit-date "${{ env.commitdate }}"
           --reset-pyinstaller-cache
           --run-as-individual-steps
@@ -60,7 +60,7 @@ jobs:
       - name: Prepare Package (--prepare-package)
         run: |
           source venv/bin/activate
-          python3.13 Build-Project.command
+          python Build-Project.command
           --prepare-package
       - name: Del venv
         run: rm -rf venv
