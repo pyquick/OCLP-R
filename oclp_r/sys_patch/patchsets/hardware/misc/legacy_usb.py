@@ -87,6 +87,8 @@ class LegacyUSBHost(BaseHardware):
                         "IOUSBFamily.kext": "14.7.6",  
                         "IOUSBHostFamily.kext": "14.7.6",  
                         "IOUSBMassStorageDriver.kext": "14.7.6",
+                        "IOAccessoryManager.kext": "14.7.6",
+                        "IOAccessoryPortUSB.kext": "14.7.6",
                     },
                 },
                 PatchType.MERGE_SYSTEM_VOLUME: {
