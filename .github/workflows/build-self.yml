@@ -26,13 +26,13 @@ jobs:
       - name: Create venv
         run: |
           rm -rf venv
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m venv venv
+          python3.13 -m venv venv
       - name: Install Dependencies
         run: |
           source venv/bin/activate
           rm -rf Univ*
           rm -rf *pay*.dmg
-          pip3.13 -m pip install -r requirements.txt
+          pip3.13 install -r requirements.txt
           /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-d6258d99afe263ce38567fc7628240f119729274/Universal-Binaries.dmg"
       - name: Force Universal2 charset for Python
         run: |
