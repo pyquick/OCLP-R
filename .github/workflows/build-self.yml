@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build wxPython
+    name: Build WxPython for self
     runs-on: self-hosted
     if: github.repository_owner == 'pyquick'
     permissions:
