@@ -23,34 +23,33 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Uninstall All packages
+      - name: Create venv
         run: |
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip freeze > a.txt
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip uninstall -y -r a.txt
+          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m venv venv
       - name: Install Dependencies
         run: |
+          source venv/bin/activate
           rm -rf Univ*
           rm -rf *pay*.dmg
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install -r requirements.txt
           /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-d6258d99afe263ce38567fc7628240f119729274/Universal-Binaries.dmg"
-      - name: Uninstall zstandard
-        run: |
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip uninstall -y zstandard
       - name: Force Universal2 charset for Python
         run: |
+          source venv/bin/activate
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip uninstall -y charset_normalizer
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip download --platform macosx_10_13_universal2 --only-binary=:all: charset-normalizer
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install charset_normalizer-*-macosx_10_13_universal2.whl
 
       - name: Prepare Assets (--prepare-assets)
-      
-        run: >
+        run: |
+          source venv/bin/activate
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 Build-Project.command
           --run-as-individual-steps
           --prepare-assets
       
       - name: Prepare Application (--prepare-application)
-        run: >
+        run: |
+          source venv/bin/activate
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 Build-Project.command
           --git-branch "${{ env.branch }}" --git-commit-url "${{ env.commiturl }}" --git-commit-date "${{ env.commitdate }}"
           --reset-pyinstaller-cache
@@ -58,9 +57,9 @@ jobs:
           --prepare-application
 
       - name: Prepare Package (--prepare-package)
-        run: >
+        run: |
+          source venv/bin/activate
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 Build-Project.command
           --prepare-package
-      - name: Install packages
-        run: |
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install -r a.txt
+      - name: Del venv
+        run: rm -rf venv
