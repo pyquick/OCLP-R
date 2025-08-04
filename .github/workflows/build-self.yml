@@ -23,6 +23,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Uninstall All packages
+        run: |
+          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip freeze > a.txt
+          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip uninstall -y -r a.txt
       - name: Install Dependencies
         run: |
           rm -rf Univ*
@@ -57,6 +61,6 @@ jobs:
         run: >
           /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 Build-Project.command
           --prepare-package
-      - name: Install zstandard
+      - name: Install packages
         run: |
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install zstandard
+          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m pip install -r a.txt
