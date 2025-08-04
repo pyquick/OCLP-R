@@ -45,22 +45,11 @@ class VoodooAudio(BaseHardware):
         if self._xnu_major >= os_data.tahoe and self._os_build != "25A5279m":
             return {
                 "Voodoo Audio": {
-                    PatchType.REMOVE_SYSTEM_VOLUME: {
-                        "/Library/PreferencePanes":[
-                            "VoodooHDA.prefPane",
-                        ],
-                        "/Library/Extensions":[
-                            "VoodooHDA.kext",
-                        ],
-                        "/System/Library/Extensions": [
-                            "AppleHDA.kext",
-                        ],
-                    },
                     PatchType.OVERWRITE_SYSTEM_VOLUME: {
-                        "/System/Library/Extensions": {
+                        "/Library/Extensions": {
                             "VoodooHDA.kext":"11.3",
                         },
-                        "/System/Library/PreferencePanes":{
+                        "/Library/PreferencePanes":{
                             "VoodooHDA.prefPane":"11.3",
                         },
                     },
@@ -69,20 +58,12 @@ class VoodooAudio(BaseHardware):
         else:
             return {
                 "Voodoo Audio": {
-                    PatchType.REMOVE_SYSTEM_VOLUME: {
-                        "/Library/PreferencePanes":[
-                            "VoodooHDA.prefPane",
-                        ],
-                        "/Library/Extensions":[
-                            "VoodooHDA.kext",
-                        ],
-                    },
                     PatchType.OVERWRITE_SYSTEM_VOLUME: {
-                        "/System/Library/Extensions": {
+                        "/Library/Extensions": {
                             "VoodooHDA.kext":"11.3",
                             "AppleHDADisabler.kext": "11.3" ,
                         },
-                        "/System/Library/PreferencePanes":{
+                        "/Library/PreferencePanes":{
                             "VoodooHDA.prefPane":"11.3",
                         },
                     },
