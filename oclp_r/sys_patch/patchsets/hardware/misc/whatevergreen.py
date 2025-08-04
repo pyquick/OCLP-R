@@ -11,6 +11,8 @@ from .....constants import Constants
 from .....datasets.os_data import os_data
 
 
+from .....support   import utilities
+
 class WEG(BaseHardware):
 
     def __init__(self, xnu_major, xnu_minor, os_build, global_constants: Constants) -> None:
@@ -30,11 +32,9 @@ class WEG(BaseHardware):
 
 
     def check_if_patch(self) -> bool:
-        import subprocess
-        kexts=subprocess.run("kextstat | grep -v com.apple",shell=True,capture_output=True,text=True).stdout
-        if "as.vit9696.WhateverGreen" in kexts:
-            return True
-        return False
+
+        return utilities.check_kext_loaded("as.vit9696.WhateverGreen") != ""
+
     
 
     def native_os(self) -> bool:

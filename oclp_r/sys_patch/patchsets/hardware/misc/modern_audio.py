@@ -10,6 +10,8 @@ from .....constants import Constants
 
 from .....datasets.os_data import os_data
 
+from .....support   import utilities
+
 
 class ModernAudio(BaseHardware):
 
@@ -29,7 +31,7 @@ class ModernAudio(BaseHardware):
         AppleHDA was outright removed in macOS 26, so this patch set is always present if OS requires it
         """
        
-        return self._constants.allow_hda_patch and self._constants.audio_type=="AppleALC"
+        return self._constants.allow_hda_patch and self._constants.audio_type=="AppleALC" and utilities.check_kext_loaded("as.vit9696.AppleALC") != ""
 
 
     def native_os(self) -> bool:
