@@ -44,23 +44,15 @@ jobs:
       - name: Prepare Assets (--prepare-assets)
         run: |
           source venv/bin/activate
-          python Build-Project.command
-          --run-as-individual-steps
-          --prepare-assets
-      
+          python Build-Project.command --run-as-individual-steps --prepare-assets
+
       - name: Prepare Application (--prepare-application)
         run: |
           source venv/bin/activate
-          python Build-Project.command
-          --git-branch "${{ env.branch }}" --git-commit-url "${{ env.commiturl }}" --git-commit-date "${{ env.commitdate }}"
-          --reset-pyinstaller-cache
-          --run-as-individual-steps
-          --prepare-application
-
+          python Build-Project.command --git-branch "${{ env.branch }}" --git-commit-url "${{ env.commiturl }}" --git-commit-date "${{ env.commitdate }}" --reset-pyinstaller-cache --run-as-individual-steps --prepare-application
       - name: Prepare Package (--prepare-package)
         run: |
           source venv/bin/activate
-          python Build-Project.command
-          --prepare-package
+          python Build-Project.command --prepare-package
       - name: Del venv
         run: rm -rf venv
