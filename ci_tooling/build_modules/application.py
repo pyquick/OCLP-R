@@ -191,7 +191,7 @@ class GenerateApplication:
         self._embed_analytics_key()
         self._generate_application()
         self._remove_analytics_key()
-        self._patch_sdk_version()# if not self._git_branch or not self._git_branch.startswith('refs/tags') else None
+        self._patch_sdk_version()
         self._patch_load_command()
         self._embed_git_data()
         self._embed_resources()

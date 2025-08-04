@@ -70,8 +70,8 @@ jobs:
         if: github.event_name == 'push'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: 2.5.0
-          name: 2.5.0
+          tag_name: 2.5.1
+          name: 2.5.1
           body: ${{ github.event.head_commit.message }}
           prerelease: false
           files: |

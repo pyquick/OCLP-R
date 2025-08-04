@@ -13,7 +13,7 @@ from .detections import device_probe
 class Constants:
     def __init__(self) -> None:
         # Patcher Versioning
-        self.patcher_version:                 str = "2.5.0"  # OCLP-R
+        self.patcher_version:                 str = "2.5.1"  # OCLP-R
         self.patcher_support_pkg_version:     str = "1.9.5"  # PatcherSupportPkg
         self.copyright_date:                  str = "Copyright © 2020-2025 Dortania and Pyquick"
         self.patcher_name:                    str = "OCLP-R"
