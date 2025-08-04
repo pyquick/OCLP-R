@@ -1,4 +1,4 @@
-name: CI - Build for self
+name: CI - Build wxPython
 
 on:
   push:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build WxPython for self
+    name: Build wxPython
     runs-on: self-hosted
     if: github.repository_owner == 'pyquick'
     permissions:
@@ -23,36 +23,34 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - name: Create venv
-        run: |
-          rm -rf venv
-          /Library/Frameworks/Python.framework/Versions/3.13/bin/python3 -m venv venv
       - name: Install Dependencies
         run: |
-          source venv/bin/activate
           rm -rf Univ*
           rm -rf *pay*.dmg
-          pip install -r requirements.txt
-          /usr/local/aria2/bin/aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-d6258d99afe263ce38567fc7628240f119729274/Universal-Binaries.dmg"
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install -r requirements.txt
+          aria2c -x 16 "https://gitapi.simplehac.top/https://github.com/pyquick/PatcherSupportPkg/releases/download/push-d6258d99afe263ce38567fc7628240f119729274/Universal-Binaries.dmg"
+
       - name: Force Universal2 charset for Python
         run: |
-          source venv/bin/activate
-          pip uninstall -y charset_normalizer
-          pip download --platform macosx_10_13_universal2 --only-binary=:all: charset-normalizer
-          pip install charset_normalizer-*-macosx_10_13_universal2.whl
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip uninstall -y charset_normalizer
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip download --platform macosx_10_9_universal2 --only-binary=:all: charset-normalizer
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 -m pip install charset_normalizer-*-macosx_10_9_universal2.whl
 
       - name: Prepare Assets (--prepare-assets)
-        run: |
-          source venv/bin/activate
-          python Build-Project.command --run-as-individual-steps --prepare-assets
+        run: >
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 Build-Project.command
+          --run-as-individual-steps
+          --prepare-assets
 
       - name: Prepare Application (--prepare-application)
-        run: |
-          source venv/bin/activate
-          python Build-Project.command --git-branch "${{ env.branch }}" --git-commit-url "${{ env.commiturl }}" --git-commit-date "${{ env.commitdate }}" --reset-pyinstaller-cache --run-as-individual-steps --prepare-application
+        run: >
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 Build-Project.command
+          --git-branch "${{ env.branch }}" --git-commit-url "${{ env.commiturl }}" --git-commit-date "${{ env.commitdate }}"
+          --reset-pyinstaller-cache
+          --run-as-individual-steps
+          --prepare-application
+
       - name: Prepare Package (--prepare-package)
-        run: |
-          source venv/bin/activate
-          python Build-Project.command --prepare-package
-      - name: Del venv
-        run: rm -rf venv
+        run: >
+          /Library/Frameworks/Python.framework/Versions/3.11/bin/python3 Build-Project.command
+          --prepare-package
