@@ -119,7 +119,7 @@ class GenerateApplication:
         """
         _file = self._application_output / "Contents" / "MacOS" / "OCLP-R"
 
-        _find    = b'\x00\x0D\x0A\x00' # 10.13 (0xA0D)
+        _find    = b'\x00\x0D\x0A\x00'
         _replace = b'\x00\x0A\x0A\x00' # 10.10 (0xA0A)
 
         print("Patching LC_VERSION_MIN_MACOSX")
@@ -195,8 +195,7 @@ class GenerateApplication:
         self._embed_analytics_key()
         self._generate_application()
         self._remove_analytics_key()
-
         self._patch_load_command()
-        self._patch_sdk_version() if not self._git_branch or not self._git_branch.startswith('refs/tags') else None
+        self._patch_sdk_version()
         self._embed_git_data()
         self._embed_resources()
