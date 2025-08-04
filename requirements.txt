@@ -1,6 +1,6 @@
 requests
 pyobjc
-wxpython @ https://wxpython.org/Phoenix/snapshot-builds/wxpython-4.2.3a15869+828abb43-cp313-cp313-macosx_10_13_universal2.whl
+wxpython @ https://wxpython.org/Phoenix/snapshot-builds/wxPython-4.2.2-cp313-cp313-macosx_10_13_universal2.whl
 pyinstaller
 packaging
 py_sip_xnu
