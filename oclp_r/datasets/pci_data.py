@@ -28,6 +28,7 @@ class nvidia_ids:
         0x0194,  # G80 [GeForce 8800 Ultra]
         0x019E,  # G80GL [Quadro FX 4600]
         0x019D,  # G80GL [Quadro FX 5600]
+        0x1010,  # Cant boot ,you can use it
         # G84
         0x0400,  # G84 [8600 GTS]
         0x0401,  # G84 [8600 GT]
@@ -45,6 +46,7 @@ class nvidia_ids:
         0x040D,  # G84 [FX 1600M]
         0x040E,  # G84 [FX 570]
         0x040F,  # G84 [FX 1700]
+        0x1011,# Cant boot ,you can use it
         # G86
         0x0420,  # G86 [8400 SE]
         0x0421,  # G86 [8500 GT]
@@ -62,6 +64,7 @@ class nvidia_ids:
         0x042D,  # G86 [FX 360M]
         0x042E,  # G86 [9300M G]
         0x042F,  # G86 [NVS 290]
+        0x1012, # Cant boot ,you can use it
         # G92
         0x0410,  # G92 [GT 330]
         0x0600,  # G92 [8800 GTS 512]
@@ -93,6 +96,7 @@ class nvidia_ids:
         0x061D,  # G92 [FX 2800M]
         0x061E,  # G92 [FX 3700M]
         0x061F,  # G92 [FX 3800M]
+        0x1013, # Cant boot ,you can use it
         # G94
         0x0621,  # G94 [GT 230]
         0x0622,  # G94 [9600 GT]
@@ -113,6 +117,7 @@ class nvidia_ids:
         0x0637,  # G94 [9600 GT]
         0x0638,  # G94 [FX 1800]
         0x063A,  # G94 [FX 2700M]
+        0x1014, # Cant boot ,you can use it
         # G96
         0x0640,  # G96 [9500 GT]
         0x0641,  # G96 [9400 GT]
@@ -138,6 +143,7 @@ class nvidia_ids:
         0x065B,  # G96 [9400 GT]
         0x065C,  # G96 [FX 770M]
         0x065F,  # G96 [G210]
+        0x1015, # Cant boot ,you can use it
         # G98
         0x06E0,  # G98 [9300 GE]
         0x06E1,  # G98 [9300 GS]
@@ -161,6 +167,7 @@ class nvidia_ids:
         0x06FB,  # G98 [FX 370M]
         0x06FD,  # G98 [NVS 295]
         0x06FF,  # G98 [HICx16]
+        0x1016, # Cant boot ,you can use it
         # GT200
         0x05E0,  # GT200 [GTX 295]
         0x05E1,  # GT200 [GTX 280]
@@ -177,6 +184,7 @@ class nvidia_ids:
         0x05FD,  # GT200GL [Quadro FX 5800]
         0x05FE,  # GT200GL [Quadro FX 4800]
         0x05FF,  # GT200GL [Quadro FX 3800]
+        0x1017, # Cant boot ,you can use it
         # MCP77 GPU
         0x0840,  # MCP77 GPU [8200M]
         0x0844,  # MCP77 GPU [9100M G]
@@ -190,6 +198,7 @@ class nvidia_ids:
         0x084C,  # MCP77 GPU [980A/780A SLI]
         0x084D,  # MCP77 GPU [750A SLI]
         0x084F,  # MCP77 GPU [8100 / 720A]
+        0x1018, # Cant boot ,you can use it
         # MCP79 GPU
         0x0860,  # MCP79 GPU [9400]
         0x0861,  # MCP79 GPU [9400]
@@ -216,6 +225,7 @@ class nvidia_ids:
         0x087D,  # MCP79 GPU [ION]
         0x087E,  # MCP79 GPU [ION LE]
         0x087F,  # MCP79 GPU [ION LE]
+        0x1019, # Cant boot ,you can use it
         # GT215
         0x0CA0,  # GT215 [GT 330]
         0x0CA2,  # GT215 [GT 320]
@@ -229,6 +239,7 @@ class nvidia_ids:
         0x0CB0,  # GT215 [GTS 350M]
         0x0CB1,  # GT215 [GTS 360M]
         0x0CBC,  # GT215 [FX 1800M]
+        0x1020, # Cant boot ,you can use it
         # GT216
         0x0A20,  # GT216 [GT 220]
         0x0A22,  # GT216 [315]
@@ -246,6 +257,7 @@ class nvidia_ids:
         0x0A35,  # GT216 [GT 325M]
         0x0A38,  # GT216 [400]
         0x0A3C,  # GT216 [FX 880M]
+        0x1021, # Cant boot ,you can use it
         # GT218
         0x0A60,  # GT218 [G210]
         0x0A62,  # GT218 [205]
@@ -274,11 +286,13 @@ class nvidia_ids:
         0x10C3,  # GT218 [8400GS]
         0x10C5,  # GT218 [405]
         0x10D8,  # GT218 [NVS 300]
+        0x1022, # Cant boot ,you can use it
         # MCP89 GPU
         0x08A0,  # MCP89 GPU [320M]
         0x08A2,  # MCP89 GPU [320M]
         0x08A3,  # MCP89 GPU [320M]
         0x08A4,  # MCP89 GPU [320M]
+        0x1023, # Cant boot ,you can use it
     ]
 
     fermi_ids = [
@@ -297,6 +311,7 @@ class nvidia_ids:
         0x06DD,  # GF100 [4000]
         0x06DE,  # GF100 [T20]
         0x06DF,  # GF100 [M2070-Q]
+        0x1111, # Cant boot ,you can use it
         # GF104
         0x0E22,  # GF104 [GTX 460]
         0x0E23,  # GF104 [GTX 460 SE]
@@ -305,6 +320,7 @@ class nvidia_ids:
         0x0E31,  # GF104 [GTX 485M]
         0x0E3A,  # GF104 [3000M]
         0x0E3B,  # GF104 [4000M]
+        0x1112, # Cant boot ,you can use it
         # GF114
         0x1200,  # GF114 [GTX 560 Ti]
         0x1201,  # GF114 [GTX 560]
@@ -318,6 +334,7 @@ class nvidia_ids:
         0x1211,  # GF114 [GTX 580M]
         0x1212,  # GF114 [GTX 675M]
         0x1213,  # GF114 [GTX 670M]
+        0x1135, # Cant boot ,you can use it
         # GF106
         0x0DC0,  # GF106 [GT 440]
         0x0DC4,  # GF106 [GTS 450]
@@ -331,6 +348,7 @@ class nvidia_ids:
         0x0DD6,  # GF106 [GT 550M]
         0x0DD8,  # GF106 [2000]
         0x0DDA,  # GF106 [2000M]
+        0x1113,# Cant boot ,you can use it
         # GF116
         0x1241,  # GF116 [GT 545 OEM]
         0x1243,  # GF116 [GT 545]
@@ -865,6 +883,8 @@ class amd_ids:
         0x67CA,  # Unknown
         0x67CC,  # Unknown
         0x67CF,  # Unknown
+        0x4321, # Cant boot ,you can use it
+        0x1234,# Cant boot ,you can use it
     ]
 
     polaris_spoof_ids = [
