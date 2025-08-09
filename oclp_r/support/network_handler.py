@@ -17,7 +17,7 @@ from typing import Union
 from pathlib import Path
 
 from . import utilities
-
+from .. import constants
 SESSION = requests.Session()
 
 
@@ -39,9 +39,14 @@ class NetworkUtilities:
 
     def __init__(self, url: str = None) -> None:
         self.url: str = url
+        self.contents=constants.Constants
 
         if self.url is None:
-            self.url = "https://github.com"
+            if self.contents.github_proxy_link=='Default':
+                self.url = "https://github.com"
+            else:
+                self.url = "https://gitapi.simplehac.top/"
+
 
 
     def verify_network_connection(self) -> bool:
