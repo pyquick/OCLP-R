@@ -269,7 +269,7 @@ class LocalInstallerCatalog:
 
             if min_required == os_data.os_data.sierra and kernel == os_data.os_data.ventura:
                 # Ventura's installer requires El Capitan minimum
-                # Ref: https://github.com/dortania/OCLP-R/discussions/1038
+                
                 min_required = os_data.os_data.el_capitan
 
             # app_version can sometimes report GM instead of the actual version

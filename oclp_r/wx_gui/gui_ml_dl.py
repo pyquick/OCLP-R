@@ -58,8 +58,9 @@ class MetallibDownloadFrame(wx.Frame):
             try:
                 if self.constants.github_proxy_link!="Default":
                     METALLIB_API_LINK:str=METALLIB_API_LINK_PROXY
-                METALLIB_API_LINK: str = METALLIB_API_LINK_ORIGIN
-                response = requests.get(METALLIB_API_LINK)
+                else:
+                    METALLIB_API_LINK: str = METALLIB_API_LINK_ORIGIN
+                response = requests.get(METALLIB_API_LINK,verify=False)
                 self.kdk_data = response.json()
                 self.kdk_data_latest = []
                 kdk_data_number=[]
@@ -176,7 +177,7 @@ class MetallibDownloadFrame(wx.Frame):
                 self.list.SetItem(index, 2, f"{item['build']}")
                 self.list.SetItem(index, 3, f"{item['seen']}")
         else:
-            logging.error("Cannot find any installers on Dortania")
+            logging.error("Cannot find any installers")
             wx.MessageDialog(self.frame_modal, "Failed to download Metallib message from Github", "Error", wx.OK | wx.ICON_ERROR).ShowModal()
             self.on_return_to_main_menu()
         if show_full is False:

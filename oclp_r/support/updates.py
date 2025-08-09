@@ -117,11 +117,20 @@ class CheckBinaryUpdates:
         for asset in data_set["assets"]:
             logging.info(f"Found asset: {asset['name']}")
             if asset["name"] == "OCLP-R.pkg":
+                begi=f"https://github.com/pyquick/OCLP-R/releases/{latest_remote_version}"
+                if self.constants.github_proxy_link=="Default":
+                    link=begi
+                elif self.constants.github_proxy_link=="SimpleHac":
+                    link="https://gitapi.simplehac.top/"+begi
+                elif self.constants.github_proxy_link=="ghfast":
+                    link="https://ghfast.top/"+begi
+                elif self.constants.github_proxy_link=="gh-proxy":
+                    link="https://gh-proxy.com/"+begi
                 self.latest_details = {
                     "Name": asset["name"],
                     "Version": latest_remote_version,
                     "Link": asset["browser_download_url"],
-                    "Github Link": f"https://github.com/pyquick/OCLP-R/releases/{latest_remote_version}",
+                    "Github Link": link,
                 }
                 return self.latest_details
 

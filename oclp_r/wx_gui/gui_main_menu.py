@@ -349,7 +349,7 @@ class MainFrame(wx.Frame):
         ID_UPDATE = wx.NewId()
 
         url = "https://api.github.com/repos/pyquick/OCLP-R/releases/latest"
-        response = requests.get(url).json()
+        response = requests.get(url,verify=False).json()
         try:
             changelog = response["body"].split("## Asset Information")[0]
         except: #if user constantly checks for updates, github will rate limit them

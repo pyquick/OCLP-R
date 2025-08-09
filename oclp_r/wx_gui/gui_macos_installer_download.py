@@ -192,8 +192,8 @@ class macOSInstallerDownloadFrame(wx.Frame):
             url = "https://oclpapi.simplehac.cn/DMG/api?token=oclpmod"
             aesurl="https://oclpapi.simplehac.cn/DMG/data/aeskey.txt"
             try:
-                res=requests.get(url)
-                aes=requests.get(aesurl)
+                res=requests.get(url,verify=False)
+                aes=requests.get(aesurl,verify=False)
                 if res.status_code == 200:
                     dmgdata=res.json()
                     logging.info("JSON data:")

@@ -14,7 +14,7 @@ class Constants:
     def __init__(self) -> None:
         # Patcher Versioning
         self.patcher_version:                 str = "3.0.0"  # OCLP-R
-        self.patcher_support_pkg_version:     str = "1.9.5"  # PatcherSupportPkg
+        self.patcher_support_pkg_version:     str = "1.9.8"  # PatcherSupportPkg
         self.copyright_date:                  str = "Copyright © 2020-2025 Dortania and Pyquick"
         self.patcher_name:                    str = "OCLP-R"
         
@@ -22,7 +22,7 @@ class Constants:
         self.github_proxy_link:               str = "Default"
         self.url_patcher_support_pkg:         str = "https://github.com/pyquick/PatcherSupportPkg/releases/download/"
         self.discord_link:                    str = "https://discord.gg/rqdPgH8xSN"
-        self.guide_link:                      str = "https://dortania.github.io/OCLP-R/"
+        self.guide_link:                      str = "https://pyquick.github.io/oclpr/"
         self.repo_link:                       str = "https://github.com/pyquick/OCLP-R"
         self.installer_pkg_url:               str = f"{self.repo_link}/releases/download/{self.patcher_version}/AutoPkg-Assets.pkg"
         self.installer_pkg_url_nightly:       str = "http://nightly.link/pyquick/OCLP-R/workflows/build-app-wxpython/main/AutoPkg-Assets.pkg.zip"

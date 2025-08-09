@@ -40,7 +40,10 @@ class NetworkUtilities:
     def __init__(self, url: str = None) -> None:
         self.url: str = url
         self.contents=constants.Constants()
-        self.url = "https://gitapi.simplehac.top/"
+        if self.contents.github_proxy_link=="Default":
+            self.url="https://www.github.com"
+        else:
+            self.url = "https://www.kkgithub.com"
 
 
 
@@ -108,7 +111,7 @@ class NetworkUtilities:
             requests.exceptions.ConnectionError,
             requests.exceptions.HTTPError
         ) as error:
-            logging.warn(f"Error calling requests.get: {error}")
+            logging.warning(f"Error calling requests.get: {error}")
             # Return empty response object
             return requests.Response()
 
