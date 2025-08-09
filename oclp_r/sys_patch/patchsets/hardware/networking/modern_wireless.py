@@ -17,11 +17,6 @@ class ModernWireless(BaseHardware):
     def __init__(self, xnu_major, xnu_minor, os_build, global_constants: Constants) -> None:
         super().__init__(xnu_major, xnu_minor, os_build, global_constants)
 
-    def requires_kernel_debug_kit(self) -> bool:
-        """
-        Apple no longer provides standalone kexts in the base OS
-        """
-        return False
     def name(self) -> str:
         """
         Display name for end users
@@ -70,29 +65,26 @@ class ModernWireless(BaseHardware):
         """
         if self.native_os() is True:
             return {}
-        if self._xnu_major>=os_data.tahoe.value:
-            return {}
-        else:
-             return {
-                "Modern Wireless": {
-                    PatchType.OVERWRITE_SYSTEM_VOLUME: {
-                        "/usr/libexec": {
-                            "airportd": f"13.7.2-{self._xnu_major}",
-                            "wifip2pd": f"13.7.2-{self._xnu_major}",
-                        },
-                        "/System/Library/CoreServices": {
-                            **({ "WiFiAgent.app": "14.7.2" } if self._xnu_major >= os_data.sequoia else {}),
-                        },
+         return {
+            "Modern Wireless": {
+                PatchType.OVERWRITE_SYSTEM_VOLUME: {
+                    "/usr/libexec": {
+                        "airportd": f"13.7.2-{self._xnu_major}",
+                        "wifip2pd": f"13.7.2-{self._xnu_major}",
                     },
-                    PatchType.MERGE_SYSTEM_VOLUME: {
-                        "/System/Library/Frameworks": {
-                            "CoreWLAN.framework": f"13.7.2-{self._xnu_major}",
-                        },
-                        "/System/Library/PrivateFrameworks": {
-                            "CoreWiFi.framework":       f"13.7.2-{self._xnu_major}",
-                            "IO80211.framework":        f"13.7.2-{self._xnu_major}",
-                            "WiFiPeerToPeer.framework": f"13.7.2-{self._xnu_major}",
-                        },
-                    }
+                    "/System/Library/CoreServices": {
+                        **({ "WiFiAgent.app": "14.7.2" } if self._xnu_major >= os_data.sequoia else {}),
+                    },
                 },
-            }
+                PatchType.MERGE_SYSTEM_VOLUME: {
+                    "/System/Library/Frameworks": {
+                        "CoreWLAN.framework": f"13.7.2-{self._xnu_major}",
+                    },
+                    "/System/Library/PrivateFrameworks": {
+                        "CoreWiFi.framework":       f"13.7.2-{self._xnu_major}",
+                        "IO80211.framework":        f"13.7.2-{self._xnu_major}",
+                        "WiFiPeerToPeer.framework": f"13.7.2-{self._xnu_major}",
+                    },
+                }
+            },
+        }
