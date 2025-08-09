@@ -65,7 +65,7 @@ class ModernWireless(BaseHardware):
         """
         if self.native_os() is True:
             return {}
-         return {
+        return {
             "Modern Wireless": {
                 PatchType.OVERWRITE_SYSTEM_VOLUME: {
                     "/usr/libexec": {
