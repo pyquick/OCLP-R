@@ -300,10 +300,18 @@ class SysPatchDisplayFrame(wx.Frame):
         logging.info("Checking if new patches are needed")
 
         if self.constants.commit_info[0] in ["Running from source", "Built from source"]:
+            print("- Running from source")
+            print(f"- Commit info: {self.constants.commit_info[0]}")
+            logging.info("- Running from source")
+            logging.info(f"- Commit info: {self.constants.commit_info[0]}")
             return True
 
         if self.constants.computer.oclp_sys_url != self.constants.commit_info[2]:
             # If commits are different, assume patches are as well
+            print("- Commit URLs differ")
+            print(f"- Commit URLs: {self.constants.commit_info[2]}")
+            logging.info("- Commit URLs differ")
+            logging.info(f"- Commit URLs: {self.constants.commit_info[2]}")
             return True
 
         oclp_plist = "/System/Library/CoreServices/OCLP-R.plist"
@@ -318,6 +326,7 @@ class SysPatchDisplayFrame(wx.Frame):
                 # Patches should share the same name as the plist key
                 # See sys_patch/patchsets/base.py for more info
                 if patch.split(": ")[1] not in oclp_plist_data:
+                    print(f"- Patch {patch} not installed")
                     logging.info(f"- Patch {patch} not installed")
                     return True
 
