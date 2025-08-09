@@ -39,13 +39,8 @@ class NetworkUtilities:
 
     def __init__(self, url: str = None) -> None:
         self.url: str = url
-        self.contents=constants.Constants
-
-        if self.url is None:
-            if self.contents.github_proxy_link=='Default':
-                self.url = "https://github.com"
-            else:
-                self.url = "https://gitapi.simplehac.top/"
+        self.contents=constants.Constants()
+        self.url = "https://gitapi.simplehac.top/"
 
 
 
