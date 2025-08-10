@@ -70,7 +70,7 @@ coll = COLLECT(exe,
 
 app = BUNDLE(coll,
              name='OCLP-R.app',
-             icon="payloads/Icon/AppIcons/OC-R.icns",
+             icon="payloads/Icon/AppIcons/OCR.icns",
              bundle_identifier="com.pyquick.oclp-r",
              info_plist={
                 "CFBundleName": "OCLP-R",

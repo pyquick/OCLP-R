@@ -1,6 +1,7 @@
 # OpenCore Legacy Patcher changelog
 
 ## 3.0.0
+- include 2.4.1 all changes
 - Add USB & WhateverGreen Patch
 - Add Modern Audio and VoodooHDA
 - Restore support for FileVault 2 on macOS 26

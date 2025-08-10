@@ -124,7 +124,7 @@ class Constants:
         ## flagersgit
         ## https://github.com/flagersgit/KDKlessWorkaround
         self.kdkless_version: str = "1.0.0"
-        self.audio_type :  str ="AppleALC"#AppleALC || VoodooHDA
+        self.audio_type :  str ="AppleHDA"#AppleALC || VoodooHDA
         ## Jazzzny
         self.legacy_keyboard: str = "1.0.0"  # LegacyKeyboardInjector - Jazzzny
 
@@ -157,7 +157,6 @@ class Constants:
         self.update_stage:               int = 0  #     Determine update stage (see gui_support.py)
         self.log_filepath:              Path = None  #  Path to log file
         self.thread_sleep_interval:    float = 0.01  #  Sleep interval between UI updates (seconds) - balance between UI responsiveness and CPU usage
-        self.allow_wireless_patch:      bool = False
         self.commit_info: tuple = (None, None, None)  # Commit info (Branch, Commit Date, Commit URL)
 
         ## Hardware
@@ -237,7 +236,6 @@ class Constants:
         self.set_vmm_cpuid:          bool = False  # Set VMM bit inside CPUID
         self.disable_mediaanalysisd: bool = False  # Set mediaanalysisd to spawn
         self.force_quad_thread:      bool = False  #  Force quad thread mode (cpus=4)
-        self.allow_hda_patch:        bool = True   # Allow HDA patch on macOS 26 B2+
         self.allow_usb_patch:        bool = True   # Allow USB patch on macOS 26+
         self.set_alc_usage:          bool = True   #  Set AppleALC usage
         self.allow_3rd_party_drives: bool = True   #  Allow ThridPartyDrives quirk
@@ -773,7 +771,7 @@ class Constants:
 
     @property
     def app_icon_path(self):
-        return self.payload_path / Path("Icon/AppIcons/OC-R.icns")
+        return self.payload_path / Path("Icon/AppIcons/OCR.icns")
 
     @property
     def icon_path_external(self):

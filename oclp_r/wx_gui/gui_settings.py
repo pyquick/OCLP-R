@@ -695,8 +695,7 @@ class SettingsFrame(wx.Frame):
                     "args": wx.Frame,
                 },
             },
-            "Root Patching": {
-                
+            "Patch": {
                 "Root Volume Patching": {
                     "type": "title",
                 },
@@ -715,17 +714,21 @@ class SettingsFrame(wx.Frame):
                     "override_function": self._update_global_settings,
                     "condition": not bool(self.constants.computer.real_model not in ["MacBookPro8,2", "MacBookPro8,3"])
                 },
-                "Allow Tahoe HDA Patch": {
-                    "type": "checkbox",
-                    "value": self.constants.allow_hda_patch,
-                    "variable": "allow_hda_patch",
-                    "constants_variable": "allow_hda_patch",
-                    "description": [
-                        "When enabled, this will patch the AppleHDA.k",
-                        "ext in S/L/E.",
-                        "Need AppleALC.kext and macOS 26 Beta 2+.",
+                "Audio Patch choice": {
+                    "type": "choice",
+                    "choices": [
+                        "AppleHDA",
+                        "VoodooHDA"
                     ],
-                    "condition":bool(gui_support.CheckModernAudio.audio_check(self))
+                    "value": self.constants.audio_type,
+                    "variable": "audio_type",
+                    "constants_variable": "audio_type",
+                    "description": [
+                        "   - AppleALC: AppleALC patch on Tahoe.",
+                        "   - VoodooHDA: VoodooHDA patch ,",
+                        "  on Monterey and newer.",
+                        "  Not recommended.",
+                    ],
                 },
                 "wrap_around 1": {
                     "type": "wrap_around",
@@ -737,24 +740,9 @@ class SettingsFrame(wx.Frame):
                     "constants_variable": "allow_usb_patch",
                     "description": [
                         "When enabled, this will patch the Old USB",
-                        "extensions in S/L/E.",
-                        "Need macOS 26 Beta 1+.",
+                        "extensions on Tahoe.",
                     ],
-                },
-                "Allow Tahoe Modern Wireless Patch": {
-                    "type": "checkbox",
-                    "value": self.constants.allow_wireless_patch,
-                    "variable": "allow_wireless_patch",
-                    "constants_variable": "allow_wireless_patch",
-                    "description": [
-                        "When enabled, this will patch the Intel/BCM ",
-                        "Wireless on macOS 26 Beta 1+.",
-                        "It is not ready! It will be kernel panic.",
-                    ],
-                    "condition":False
-                },
-                
-                
+                },               
                 "Non-Metal Configuration": {
                     "type": "title",
                 },
@@ -858,27 +846,28 @@ class SettingsFrame(wx.Frame):
                         # "Ignore app updates",
                     ],
                     "override_function": self._update_global_settings,
-                },
-                "Audio Patch choice": {
+                },                
+                "Github Proxy": {
                     "type": "choice",
                     "choices": [
-                        "AppleALC",
-                        "VoodooHDA"
+                        "Default",
+                        "SimpleHac",
+                        "gh-proxy",
+                        "ghfast",
                     ],
-                    "value": self.constants.audio_type,
-                    "variable": "audio_type",
-                    "constants_variable": "audio_type",
+                    "value": self.constants.github_proxy_link,
+                    "variable": "github_proxy_link",
+                    "constants_variable": "github_proxy_link",
                     "description": [
-                        "Supported Levels:",
-                        "   - AppleALC: AppleALC patch on Tahoe.\nNote: Apple Delete AppleHDA.kext on Tahoe Beta2.",
-                        "   - VoodooHDA: VoodooHDA patch on Tahoe.\nAs a replacement for AppleHDA + AppleALC",
+                        "Default : https://dortania.github.io/",
+                        "SimpleHac : https://gitapi.simplehac.top/",
+                        "gh-proxy : https://gh-proxy.com/",
+                        "ghfast : https://ghfast.top/",
                     ],
                 },
-                
                 "wrap_around 1": {
                     "type": "wrap_around",
-                },
-                
+                },                
                 "Disable Reporting": {
                     "type": "checkbox",
                     "value": global_settings.GlobalEnviromentSettings().read_property("DisableCrashAndAnalyticsReporting"),
@@ -900,25 +889,7 @@ class SettingsFrame(wx.Frame):
                         "during root patching.",
                     ],
                     "override_function": self._update_global_settings,
-                },
-                "Github Proxy": {
-                    "type": "choice",
-                    "choices": [
-                        "Default",
-                        "SimpleHac",
-                        "gh-proxy",
-                        "ghfast",
-                    ],
-                    "value": self.constants.github_proxy_link,
-                    "variable": "github_proxy_link",
-                    "constants_variable": "github_proxy_link",
-                    "description": [
-                        "Default : https://dortania.github.io/",
-                        "SimpleHac : https://gitapi.simplehac.top/",
-                        "gh-proxy : https://gh-proxy.com/",
-                        "ghfast : https://ghfast.top/",
-                    ],
-                },
+                },               
                 "wrap_around 1": {
                     "type": "wrap_around",
                 },
