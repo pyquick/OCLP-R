@@ -39,7 +39,6 @@ class ModernWireless(BaseHardware):
             ]
         ) or isinstance(self._computer.wifi, device_probe.IntelWirelessCard)and(
             self._computer.wifi.chipset in [
-                # We don't officially support this chipset, however we'll throw a bone to hackintosh users
                 device_probe.IntelWirelessCard.Chipsets.IntelWirelessIDs,
             ]
         )    

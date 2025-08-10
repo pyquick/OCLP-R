@@ -1,7 +1,7 @@
 
 
 """
-usb11.py: Legacy USB 1.1 Controller detection
+legacy_usb11.py: Legacy USB 1.1 Controller detection
 """
 
 from ..base import BaseHardware, HardwareVariant

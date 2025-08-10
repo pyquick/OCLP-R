@@ -1,5 +1,5 @@
 """
-legacy_usb.py: Legacy USB patch set for macOS 26+
+modern_usb.py: Legacy USB patch set for macOS 26+
 """
 
 from ..base import BaseHardware, HardwareVariant
@@ -21,7 +21,7 @@ class LegacyUSBHost(BaseHardware):
         """
         Display name for end users
         """
-        return f"{self.hardware_variant()}: Legacy USB"
+        return f"{self.hardware_variant()}: Modern USB"
 
     def requires_kernel_debug_kit(self) -> bool:
         """
@@ -45,7 +45,7 @@ class LegacyUSBHost(BaseHardware):
 
     def _legacy_usb_patches(self) -> dict:
         """
-        Patches for Modern Audio
+        Patches for USB
         Including:
         - IOUSBMassStorageDriver.kext (USB)
         - IOUSBDeviceFamily.kext (USB)
@@ -53,7 +53,7 @@ class LegacyUSBHost(BaseHardware):
         - IOUSBHostFamily.kext (USB)
         """
         return {
-            "Legacy USB": {
+            "Modern USB": {
                 PatchType.OVERWRITE_SYSTEM_VOLUME: {
                     "/System/Library/Extensions": {
                         "AppleUSBACM.kext": "14.7.6",  
