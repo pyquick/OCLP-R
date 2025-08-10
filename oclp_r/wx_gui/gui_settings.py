@@ -865,6 +865,7 @@ class SettingsFrame(wx.Frame):
                         "ghfast : https://ghfast.top/",
                     ],
                 },
+                
                 "wrap_around 1": {
                     "type": "wrap_around",
                 },                
@@ -892,6 +893,18 @@ class SettingsFrame(wx.Frame):
                 },               
                 "wrap_around 1": {
                     "type": "wrap_around",
+                },
+                #manually_download_kdk
+                "Manually Download KDKs and\nMetallibs": {
+                    "type": "checkbox",
+                    "value": self.constants.manually_download_kdk,
+                    "variable": "manually_download_kdk",
+                    "constants_variable": "manually_download_kdk",
+                    "description": [
+                        "",
+                        "When enabled, patcher will allow",
+                        "you download KDKs and metallibs manually.",
+                    ],
                 },
                 "Misc": {
                     "type": "title",

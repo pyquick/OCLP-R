@@ -5,6 +5,7 @@ from ..base import BaseHardware, HardwareVariant
 from ...base import PatchType
 from .....constants import Constants
 from .....datasets.os_data import os_data
+from .....support   import utilities
 class VoodooAudio(BaseHardware):
 
     def __init__(self, xnu_major, xnu_minor, os_build, global_constants: Constants) -> None:
@@ -19,7 +20,7 @@ class VoodooAudio(BaseHardware):
 
 
     def present(self) -> bool:
-        return self._constants.audio_type=="VoodooHDA"
+        return self._constants.audio_type=="VoodooHDA" and utilities.check_kext_loaded("as.vit9696.AppleALC") ==""
 
 
     def native_os(self) -> bool:

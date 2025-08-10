@@ -85,66 +85,108 @@ class MainFrame(wx.Frame):
         model_label.SetFont(gui_support.font_factory(13, wx.FONTWEIGHT_NORMAL))
         model_label.Centre(wx.HORIZONTAL)
         self.model_label = model_label
+        if self.constants.manually_download_kdk is True:
+            # Buttons:
+            menu_buttons = {
+                "Build and Install OpenCore": {
+                    "function": self.on_build_and_install,
+                    "description": [
+                        "Prepares provided drive to be able",
+                        "to boot unsupported OSes.",
+                        "Use on installers or internal drives."
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "OC-Build.icns"),
+                },
+                "Create macOS Installer": {
+                    "function": self.on_create_macos_installer,
+                    "description": [
+                        "Download and flash a macOS",
+                        "Installer for your system.",
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "OC-Installer.icns"),
+                },
+                "KDK Download": {
+                    "function": self.on_download_kdk,
+                    "description": [
+                        "Provide KDK download",
+                        "for your system.(macOS 13 with OCLP)",
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "Package.icns"),
+                },
+                "⚙️ Settings": {
+                    "function": self.on_settings,
+                    "description": [
+                    ],
+                },
+                "Post-Install Root Patch": {
+                    "function": self.on_post_install_root_patch,
+                    "description": [
+                        "Installs hardware drivers and",
+                        "patches for your system after",
+                        "installing a new version of macOS.",
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "OC-Patch.icns"),
+                },
+                "MetalLib Download": {
 
-        # Buttons:
-        menu_buttons = {
-            "Build and Install OpenCore": {
-                "function": self.on_build_and_install,
-                "description": [
-                    "Prepares provided drive to be able",
-                    "to boot unsupported OSes.",
-                    "Use on installers or internal drives."
-                ],
-                "icon": str(self.constants.icns_resource_path / "OC-Build.icns"),
-            },
-            "Create macOS Installer": {
-                "function": self.on_create_macos_installer,
-                "description": [
-                    "Download and flash a macOS",
-                    "Installer for your system.",
-                ],
-                "icon": str(self.constants.icns_resource_path / "OC-Installer.icns"),
-            },
-            "KDK Download": {
-                "function": self.on_download_kdk,
-                "description": [
-                    "Provide KDK download",
-                    "for your system.(macOS 13 with OCLP)",
-                ],
-                "icon": str(self.constants.icns_resource_path / "Package.icns"),
-            },
-            "⚙️ Settings": {
-                "function": self.on_settings,
-                "description": [
-                ],
-            },
-            "Post-Install Root Patch": {
-                "function": self.on_post_install_root_patch,
-                "description": [
-                    "Installs hardware drivers and",
-                    "patches for your system after",
-                    "installing a new version of macOS.",
-                ],
-                "icon": str(self.constants.icns_resource_path / "OC-Patch.icns"),
-            },
-            "MetalLib Download": {
-
-               "function": self.on_download_ml,
-                "description": [
-                    "Provide MetalLib for your system.",
-                    "This is required for Metal3802 devices.\n(macOS 15+ Needs!)",
-                ],
-                "icon": str(self.constants.icns_resource_path / "Package.icns"),
-            },
-            "Support": {
-                "function": self.on_help,
-                "description": [
-                    "Resources for OpenCore Legacy",
-                    "Patcher.",
-                ],
-                "icon": str(self.constants.icns_resource_path / "OC-Support.icns"),
-            },
-        }
+                "function": self.on_download_ml,
+                    "description": [
+                        "Provide MetalLib for your system.",
+                        "This is required for Metal3802 devices.\n(macOS 15+ Needs!)",
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "Package.icns"),
+                },
+                "Support": {
+                    "function": self.on_help,
+                    "description": [
+                        "Resources for OpenCore Legacy",
+                        "Patcher.",
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "OC-Support.icns"),
+                },
+            }
+        else:
+            menu_buttons = {
+                "Build and Install OpenCore": {
+                    "function": self.on_build_and_install,
+                    "description": [
+                        "Prepares provided drive to be able",
+                        "to boot unsupported OSes.",
+                        "Use on installers or internal drives."
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "OC-Build.icns"),
+                },
+                "Create macOS Installer": {
+                    "function": self.on_create_macos_installer,
+                    "description": [
+                        "Download and flash a macOS",
+                        "Installer for your system.",
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "OC-Installer.icns"),
+                },
+                "⚙️ Settings": {
+                    "function": self.on_settings,
+                    "description": [
+                    ],
+                },
+                "Post-Install Root Patch": {
+                    "function": self.on_post_install_root_patch,
+                    "description": [
+                        "Installs hardware drivers and",
+                        "patches for your system after",
+                        "installing a new version of macOS.",
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "OC-Patch.icns"),
+                },
+                "Support": {
+                    "function": self.on_help,
+                    "description": [
+                        "Resources for OpenCore Legacy",
+                        "Patcher.",
+                    ],
+                    "icon": str(self.constants.icns_resource_path / "OC-Support.icns"),
+                },
+            }
         button_x = 30
         button_y = model_label.GetPosition()[1] + 30
         rollover = len(menu_buttons) / 2

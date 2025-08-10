@@ -158,7 +158,7 @@ class Constants:
         self.log_filepath:              Path = None  #  Path to log file
         self.thread_sleep_interval:    float = 0.01  #  Sleep interval between UI updates (seconds) - balance between UI responsiveness and CPU usage
         self.commit_info: tuple = (None, None, None)  # Commit info (Branch, Commit Date, Commit URL)
-
+        self.manually_download_kdk: bool = False
         ## Hardware
         self.computer: device_probe.Computer = None  # type: ignore
         self.custom_model:     Optional[str] = None
