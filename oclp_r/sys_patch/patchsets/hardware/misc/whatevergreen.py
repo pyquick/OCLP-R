@@ -23,7 +23,7 @@ class WEG(BaseHardware):
         """
         Display name for end users
         """
-        return f"{self.hardware_variant()}: WhateverGreen"
+        return f"{self.hardware_variant()}: WEG Patch"
 
 
     def present(self) -> bool:
@@ -56,11 +56,11 @@ class WEG(BaseHardware):
         Patches for Whatevergreen
         """
         return {
-            "WhateverGreen": {
+            "WEG Patch": {
                 PatchType.OVERWRITE_SYSTEM_VOLUME: {
                     "/System/Library/Extensions": {
-                        "WhateverGreen.kext":      "WhateverGreen",
-                        "Lilu.kext":               "WhateverGreen",
+                        "WhateverGreen.kext":      "WEG",
+                        "Lilu.kext":               "WEG",
                     },
                 },
             },
@@ -68,9 +68,6 @@ class WEG(BaseHardware):
 
 
     def patches(self) -> dict:
-        """
-        Patches for modern audio
-        """
         if self.native_os() is True :
             return {}
         if self.check_if_patch() is True:
